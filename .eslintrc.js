@@ -27,5 +27,6 @@ module.exports = {
     indent: ['error', 2],
     'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 0 }],
     'no-multi-spaces': ['error', { ignoreEOLComments: true }],
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
   },
 };
