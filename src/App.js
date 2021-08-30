@@ -5,11 +5,11 @@ import Dashboard from './components/dashboard/Dashboard';
 const App = () => (
   <Router>
     <Switch>
-      <Route path="/">
-        <Home />
-      </Route>
       <Route path="/dashboard">
         <Dashboard />
+      </Route>
+      <Route path="/">
+        <Home />
       </Route>
     </Switch>
   </Router>
