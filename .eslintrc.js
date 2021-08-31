@@ -28,5 +28,6 @@ module.exports = {
     'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 0 }],
     'no-multi-spaces': ['error', { ignoreEOLComments: true }],
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    'react/prop-types': ['off'],
   },
 };
