@@ -17,9 +17,19 @@ const useStyles = makeStyles({
   menu_items: {
     display: 'flex',
   },
-  avatar: {
+  menuButton: {
     display: 'flex',
     justifyContent: 'flex-end',
+  },
+  menuItemText: {
+    paddingLeft: '4px',
+    textTransform: 'none',
+  },
+  avatar: {
+    border: '8px solid white',
+  },
+  userProfile: {
+    padding: '8px',
   },
 });
 
@@ -36,8 +46,9 @@ const Header = () => {
 
   return (
     <AppBar position="static">
-      <Button className={classes.avatar} id="user-info">
+      <Button className={classes.menuButton} id="user-info">
         <Avatar
+          className={classes.avatar}
           alt="David"
           src={profilePhoto}
           onClick={handleClick}
@@ -52,18 +63,18 @@ const Header = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <Box component="div">
+        <Box component="div" className={classes.userProfile}>
           <Typography variant="subtitle2" component="h6" id="user-name">David Gasana Manzi</Typography>
           <Typography variant="subtitle2" component="h6" id="occupation">Software Engineer</Typography>
         </Box>
         <Box>
           <Button href="/dashboard" aria-label="Profile" className={classes.menu_items} id="profile">
             <PersonIcon />
-            <ListItemText>Profile</ListItemText>
+            <ListItemText className={classes.menuItemText}>Profile</ListItemText>
           </Button>
           <Button href="/dashboard" aria-label="Settings" className={classes.menu_items} id="settings">
             <SettingsIcon />
-            <ListItemText>Settings</ListItemText>
+            <ListItemText className={classes.menuItemText}>Settings</ListItemText>
           </Button>
         </Box>
       </Menu>

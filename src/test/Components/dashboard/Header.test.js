@@ -15,14 +15,14 @@ describe('Dashboard', () => {
       const button = wrapper.find('#user-info');
       button.simulate('click');
     });
-    it('has username typographies', () => {
+    it('has username', () => {
       expect(wrapper.find('#user-name').text()).toContain('David Gasana Manzi');
     });
     it('has occupation', () => {
       expect(wrapper.find('#occupation').text()).toContain('Software Engineer');
     });
 
-    describe('Profile button', () => {
+    describe('Profiles button', () => {
       it('on click, renders profile page', () => {
         wrapper.find('#profile').simulate('click');
         expect('#').toEqual('#');
@@ -30,7 +30,7 @@ describe('Dashboard', () => {
     });
 
     describe('Settings button', () => {
-      it('on click, renders profile page', () => {
+      it('on click, renders settings page', () => {
         wrapper.find('#settings').simulate('click');
         expect('#').toEqual('#');
       });
