@@ -1,8 +1,9 @@
 import React from 'react';
+import Header from './Header';
 
 const Dashboard = () => (
   <div>
-    <h2>Dashboard</h2>
+    <Header />
   </div>
 );
 
