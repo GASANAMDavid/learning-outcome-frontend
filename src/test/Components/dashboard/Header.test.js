@@ -12,7 +12,7 @@ describe('Dashboard', () => {
 
   describe('Profile Picture button', () => {
     beforeEach(() => {
-      const button = wrapper.find('.user-info');
+      const button = wrapper.find('#user-info');
       button.simulate('click');
     });
     it('has username typographies', () => {

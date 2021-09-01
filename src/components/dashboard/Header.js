@@ -36,7 +36,7 @@ const Header = () => {
 
   return (
     <AppBar position="static">
-      <Button className="user-info">
+      <Button className={classes.avatar} id="user-info">
         <Avatar
           alt="David"
           src={profilePhoto}
