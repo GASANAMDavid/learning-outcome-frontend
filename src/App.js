@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { connect } from 'react-redux';
 import Home from './components/home/Home';
 import Dashboard from './components/dashboard/Dashboard';
 
@@ -11,4 +10,4 @@ const App = () => (
     </Switch>
   </Router>
 );
-export default connect()(App);
+export default App;
