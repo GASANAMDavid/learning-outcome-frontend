@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Header from './Header';
+import getCurrentMatrix from '../../redux/actions/getCurrentMatrix';
 
-const Dashboard = () => (
-  <div>
-    <Header />
-  </div>
-);
+const Dashboard = () => {
+  const dispatch = useDispatch();
+  const matrix = useSelector((state) => state.getCurrentMatrixReducer.matrix);
+  useEffect(() => {
+    dispatch(getCurrentMatrix());
+  }, [dispatch]);
+
+  // eslint-disable-next-line no-console
+  console.log(matrix);
+  return (
+    <div>
+      <Header />
+    </div>
+  );
+};
 
 export default Dashboard;
