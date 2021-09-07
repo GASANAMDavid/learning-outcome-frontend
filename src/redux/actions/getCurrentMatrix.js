@@ -1,12 +1,12 @@
-import axiosInstance from '../../helpers/api';
+import axios from 'axios';
 
 export const getCurrentMatrixSuccess = (payload) => ({
   type: 'GET_CURRENT_MATRIX_SUCCESS',
   payload,
 });
 
-const getCurrentMatrix = () => (dispatch) => axiosInstance
-  .get('/learning_outcome_matrix')
+const getCurrentMatrix = () => (dispatch) => axios
+  .get('http://localhost:3000/learning_outcome_matrix')
   .then(({ data }) => {
     dispatch(getCurrentMatrixSuccess(data));
   });
