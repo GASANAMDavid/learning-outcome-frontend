@@ -8,7 +8,7 @@ const getCurrentMatrixReducer = (state = initialState, action) => {
   case 'GET_CURRENT_MATRIX_SUCCESS':
     return {
       ...state,
-      matrix: action.payload,
+      matrix: action.payload.matrix,
     };
 
   default:

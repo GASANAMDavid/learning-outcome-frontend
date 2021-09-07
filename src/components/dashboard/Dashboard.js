@@ -11,7 +11,7 @@ const Dashboard = () => {
   }, [dispatch]);
 
   // eslint-disable-next-line no-console
-  console.log(matrix);
+  console.log(matrix.data);
   return (
     <div>
       <Header />
