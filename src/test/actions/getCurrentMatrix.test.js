@@ -1,7 +1,6 @@
 import moxios from 'moxios';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-// import axios from 'axios';
 import getCurrentMatrix from '../../redux/actions/getCurrentMatrix';
 
 const middlewares = [thunk];

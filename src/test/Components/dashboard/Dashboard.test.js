@@ -7,11 +7,11 @@ describe('Dashboard', () => {
   beforeEach(() => {
     dashboard = shallow(<Dashboard />);
   });
-  xit('should render correctly', () => {
+  it('should render correctly', () => {
     shallow(<Dashboard />);
   });
 
-  xit('should have a Header component', () => {
+  it('should have a Header component', () => {
     expect(dashboard.find('Header').exists()).toBe(true);
   });
 });
