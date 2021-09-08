@@ -8,7 +8,7 @@ describe('getCurrentMatrix reducer', () => {
         theme: {
         },
       }],
-      skill_level_options: [{}],
+      skill_level_options: [],
     },
     errors: '',
   };

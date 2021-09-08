@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
@@ -45,7 +44,6 @@ const MatrixTable = () => {
   ];
 
   const classes = useStyles();
-  // console.log(matrix);
 
   const createTable = () => (
     <Paper className={classes.root}>
