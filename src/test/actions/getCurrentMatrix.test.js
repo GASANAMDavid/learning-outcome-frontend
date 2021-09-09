@@ -17,6 +17,7 @@ describe('getCurrentMatrix action', () => {
     const initialState = {
       matrix: {},
       errors: '',
+      newUpdates: false,
     };
     const store = mockStore(initialState);
     const expectedOutcomeMatrix = {

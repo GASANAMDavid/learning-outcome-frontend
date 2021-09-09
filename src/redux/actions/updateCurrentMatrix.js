@@ -1,6 +1,16 @@
-const updateLocalMatrix = (payload) => ({
-  type: 'UPDATE_LOCAL_MATRIX',
+const updateLocalMatrixSuccess = (payload) => ({
+  type: 'UPDATE_LOCAL_MATRIX_SUCCESS',
   payload,
 });
+
+const setNewUpdateFlag = (payload) => ({
+  type: 'SET_NEW_UPDATE_FLAG',
+  payload,
+});
+
+const updateLocalMatrix = (payload) => (dispatch) => {
+  dispatch(updateLocalMatrixSuccess(payload.state));
+  dispatch(setNewUpdateFlag(payload.flag));
+};
 
 export default updateLocalMatrix;
