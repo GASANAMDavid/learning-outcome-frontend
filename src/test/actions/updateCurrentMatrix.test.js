@@ -11,13 +11,19 @@ describe('updateCurrentMatrix', () => {
 
   it('has action to update local matrix state', () => {
     const currentState = {
-      id: 1,
-      learning_outcome: 'Updating local store',
-      skills_level: '1',
-      theme: {
-        title: 'Redux action',
-        link: 'http://redux.org/actions',
+      matrix: {
+        data: [{
+          id: 1,
+          learning_outcome: 'Updating local store',
+          skills_level: '1',
+          theme: {
+            title: 'Redux action',
+            link: 'http://redux.org/actions',
+          },
+        }],
       },
+      errors: '',
+      newUpdates: false,
     };
     const store = mockStore(currentState);
     const newState = {
@@ -25,10 +31,10 @@ describe('updateCurrentMatrix', () => {
       skills_level: '2',
     };
     const expectedActions = [{
-      type: 'UPDATE_LOCAL_MATRIX',
+      type: 'UPDATE_LOCAL_MATRIX_SUCCESS',
       payload: newState,
-    }];
-    store.dispatch(updateLocalMatrix(newState));
+    }, { type: 'SET_NEW_UPDATE_FLAG', payload: true }];
+    store.dispatch(updateLocalMatrix({ state: newState, flag: true }));
     expect(store.getActions()).toEqual(expectedActions);
   });
 });
