@@ -52,9 +52,7 @@ const MatrixTable = () => {
           <TableHead>
             <TableRow>
               {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                >
+                <TableCell key={column.id}>
                   {column.label}
                 </TableCell>
               ))}

@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Dashboard from '../../../components/dashboard/Dashboard';
 
-describe('Dashboard', () => {
+describe(Dashboard, () => {
   let dashboard;
   beforeEach(() => {
     dashboard = shallow(<Dashboard />);

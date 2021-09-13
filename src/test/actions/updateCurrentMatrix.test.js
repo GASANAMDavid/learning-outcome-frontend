@@ -26,15 +26,15 @@ describe('updateCurrentMatrix', () => {
       newUpdates: false,
     };
     const store = mockStore(currentState);
-    const newState = {
+    const newSkillLevel = {
       id: '1',
       skills_level: '2',
     };
     const expectedActions = [{
       type: 'UPDATE_LOCAL_MATRIX_SUCCESS',
-      payload: newState,
+      payload: newSkillLevel,
     }, { type: 'SET_NEW_UPDATE_FLAG', payload: true }];
-    store.dispatch(updateLocalMatrix({ state: newState, flag: true }));
+    store.dispatch(updateLocalMatrix({ newSkillLevel, flag: true }));
     expect(store.getActions()).toEqual(expectedActions);
   });
 });

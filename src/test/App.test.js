@@ -12,10 +12,11 @@ describe('App', () => {
     getCurrentMatrixReducer: {
       matrix: {
         data: [{
-          id: '',
+          id: '1',
+          skills_level: '1',
           theme: {},
         }],
-        skill_level_options: [{}],
+        skill_level_options: [{ id: '1', display: '' }],
         errors: '',
       },
     },

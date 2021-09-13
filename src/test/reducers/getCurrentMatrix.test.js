@@ -8,7 +8,7 @@ describe('getCurrentMatrix reducer', () => {
         theme: {
         },
       }],
-      skill_level_options: [],
+      skill_level_options: [{ display: '' }],
     },
     errors: '',
     newUpdates: false,
@@ -70,7 +70,7 @@ describe('getCurrentMatrix reducer', () => {
       matrix: {
         data: [{
           id: 1,
-          learning_outcome: 'Tessing redux',
+          learning_outcome: 'Testing redux',
           skills_level: 1,
           theme: {
             title: 'Automated testing',
@@ -99,7 +99,7 @@ describe('getCurrentMatrix reducer', () => {
       matrix: {
         data: [{
           id: 1,
-          learning_outcome: 'Tessing redux',
+          learning_outcome: 'Testing redux',
           skills_level: 2,
           theme: {
             title: 'Automated testing',
