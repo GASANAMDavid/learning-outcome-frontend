@@ -9,6 +9,7 @@ const getCurrentMatrix = () => (dispatch) => axios
   .get('http://localhost:3000/learning_outcome_matrix')
   .then(({ data }) => {
     dispatch(getCurrentMatrixSuccess(data));
-  });
+  })
+  .catch((error) => { console.log(error); });
 
 export default getCurrentMatrix;

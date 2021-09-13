@@ -5,7 +5,7 @@ const initialState = {
       theme: {
       },
     }],
-    skill_level_options: [],
+    skill_level_options: [{ display: '' }],
   },
   errors: '',
   newUpdates: false,

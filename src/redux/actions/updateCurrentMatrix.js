@@ -9,7 +9,7 @@ const setNewUpdateFlag = (payload) => ({
 });
 
 const updateLocalMatrix = (payload) => (dispatch) => {
-  dispatch(updateLocalMatrixSuccess(payload.state));
+  dispatch(updateLocalMatrixSuccess(payload.newSkillLevel));
   dispatch(setNewUpdateFlag(payload.flag));
 };
 

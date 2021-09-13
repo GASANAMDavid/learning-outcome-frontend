@@ -1,17 +1,34 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { MenuItem } from '@material-ui/core';
+import { mount } from 'enzyme';
+import {
+  MenuItem, Button, Table, TableBody,
+} from '@material-ui/core';
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
 import SkillRow from '../../../components/dashboard/SkillRow';
 
 describe(SkillRow, () => {
+  const mockStore = configureStore([thunk]);
+  const store = mockStore({});
   let wrapper;
-  beforeEach(() => {
-    wrapper = shallow(<SkillRow row={{ theme: { title: 'Title' } }} skillLevelOptions={[{ id: '' }]} />);
-  });
 
   it('shows menu for different skill levels', () => {
-    const button = wrapper.find('.skills-level-btn');
+    wrapper = mount(
+      <Provider store={store}>
+        <Table>
+          <TableBody>
+            <SkillRow
+              row={{ skills_level: '1', theme: { title: 'Title' } }}
+              skillLevelOptions={[{ id: '1', display: '' }, { id: '2', display: '' }, { id: '3', display: '' }]}
+            />
+          </TableBody>
+        </Table>
+      </Provider>,
+    );
+    const button = wrapper.find(Button);
+
     button.simulate('click', { currentTarget: {} });
-    expect(wrapper.find(MenuItem)).toHaveLength(1);
+    expect(wrapper.find(MenuItem)).toHaveLength(3);
   });
 });
