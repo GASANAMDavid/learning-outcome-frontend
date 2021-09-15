@@ -1,11 +1,12 @@
 const initialState = {
   matrix: {
     data: [{
-      id: '',
+      id: '1',
       theme: {
       },
+      skills_level: 1,
     }],
-    skill_level_options: [{ display: '' }],
+    skill_level_options: [{ id: 1, display: '1' }],
   },
   errors: '',
   newUpdates: false,

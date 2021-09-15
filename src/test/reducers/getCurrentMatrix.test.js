@@ -1,14 +1,15 @@
 import getCurrentMatrixReducer from '../../redux/reducers/getCurrentMatrix';
 
-describe('getCurrentMatrix reducer', () => {
+describe(getCurrentMatrixReducer, () => {
   const initialState = {
     matrix: {
       data: [{
-        id: '',
+        id: '1',
+        skills_level: 1,
         theme: {
         },
       }],
-      skill_level_options: [{ display: '' }],
+      skill_level_options: [{ id: 1, display: '1' }],
     },
     errors: '',
     newUpdates: false,

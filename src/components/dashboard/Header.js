@@ -38,7 +38,6 @@ const Header = () => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = (event) => {
-    console.log(event);
     setAnchorEl(event.currentTarget);
   };
 
