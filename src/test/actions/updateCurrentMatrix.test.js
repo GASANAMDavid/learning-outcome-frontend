@@ -63,13 +63,13 @@ describe('updateCurrentMatrix', () => {
       return store.dispatch(updateDatabaseMatrix([{ id: 1, skills_level_id: 2 }]))
         .then(() => {
           const expectedActions = [{
+            type: 'SET_NEW_UPDATE_FLAG',
+            payload: false,
+          }, {
             type: 'UPDATE_DATABASE_MATRIX_SUCCESS',
             payload: {
               message: 'Updated successfully',
             },
-          }, {
-            type: 'SET_NEW_UPDATE_FLAG',
-            payload: false,
           }];
           expect(store.getActions()).toEqual(expectedActions);
         });

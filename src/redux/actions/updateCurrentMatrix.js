@@ -22,7 +22,7 @@ const updateLocalMatrix = (payload) => (dispatch) => {
 
 export const updateDatabaseMatrix = (updates) => (dispatch) => {
   dispatch(setNewUpdateFlag(false));
-  axios
+  return axios
     .put('http://localhost:3000/learning_outcome_matrix', updates)
     .then(({ data }) => {
       dispatch(updateDatabaseMatrixSuccess(data));
