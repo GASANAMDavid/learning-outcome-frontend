@@ -8,6 +8,8 @@ import MatrixTable from '../../../components/dashboard/MatrixTable';
 
 describe(MatrixTable, () => {
   const mockStore = configureStore([thunk]);
+  const useDispatchSpy = jest.spyOn(redux, 'useDispatch');
+  let wrapper;
   const store = mockStore({
     getCurrentMatrixReducer: {
       matrix: {
@@ -34,6 +36,7 @@ describe(MatrixTable, () => {
         skill_level_options: [{ id: '1', display: '' }],
       },
       errors: '',
+      newUpdates: false,
     },
   });
 
@@ -45,12 +48,45 @@ describe(MatrixTable, () => {
     );
   });
 
-  it('renders a given number of SkillRow components', () => {
-    const useDispatchSpy = jest.spyOn(redux, 'useDispatch');
+  beforeEach(() => {
     const mockDispatchFn = jest.fn();
     useDispatchSpy.mockReturnValue(mockDispatchFn);
-    const wrapper = mount(<Provider store={store}><MatrixTable /></Provider>);
-    expect(wrapper.find('SkillRow')).toHaveLength(2);
+    wrapper = mount(<Provider store={store}><MatrixTable /></Provider>);
+  });
+
+  afterEach(() => {
     useDispatchSpy.mockClear();
+  });
+
+  it('renders a given number of SkillRow components', () => {
+    expect(wrapper.find('SkillRow')).toHaveLength(2);
+  });
+
+  describe('update button', () => {
+    it('doesn\'t exist when there are no new local updates', () => {
+      expect(wrapper.find({ 'data-testid': 'updates' })).toHaveLength(0);
+    });
+    it('exists when there are new local updates in the matrix store', () => {
+      const updatedStore = mockStore({
+        getCurrentMatrixReducer: {
+          matrix: {
+            data: [{
+              id: 1,
+              learning_outcome: 'The Four-Phase Test',
+              skills_level: '1',
+              theme: {
+                title: 'Automated Testing',
+                link: 'https://github.com/abc',
+              },
+              apprenticeship_level: 1,
+            }],
+            skill_level_options: [{ id: '1', display: '' }],
+          },
+          newUpdates: true,
+        },
+      });
+      wrapper = mount(<Provider store={updatedStore}><MatrixTable /></Provider>);
+      expect(wrapper.find({ 'data-testid': 'update-btn' }).length).toBeGreaterThan(0);
+    });
   });
 });
