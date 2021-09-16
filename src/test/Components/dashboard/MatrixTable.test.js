@@ -22,21 +22,24 @@ describe(MatrixTable, () => {
             link: 'https://github.com/abc',
           },
           apprenticeship_level: 1,
-        },
-        {
-          id: 2,
-          learning_outcome: 'Three Rules of TDD',
+        }],
+        skill_level_options: [{ id: '1', display: '' }, { id: '2', display: '' }],
+      },
+    },
+    updateMatrixReducer: {
+      matrix: {
+        data: [{
+          id: 1,
+          learning_outcome: 'The Four-Phase Test',
           skills_level: '1',
           theme: {
             title: 'Automated Testing',
-            link: 'https://github.com/abc123',
+            link: 'https://github.com/abc',
           },
           apprenticeship_level: 1,
         }],
-        skill_level_options: [{ id: '1', display: '' }],
+        skill_level_options: [{ id: '1', display: '' }, { id: '2', display: '' }],
       },
-      errors: '',
-      newUpdates: false,
     },
   });
 
@@ -59,12 +62,12 @@ describe(MatrixTable, () => {
   });
 
   it('renders a given number of SkillRow components', () => {
-    expect(wrapper.find('SkillRow')).toHaveLength(2);
+    expect(wrapper.find('SkillRow')).toHaveLength(1);
   });
 
   describe('update button', () => {
-    it('doesn\'t exist when there are no new local updates', () => {
-      expect(wrapper.find({ 'data-testid': 'updates' })).toHaveLength(0);
+    it('disabled when there are no new local updates', () => {
+      expect(wrapper.find({ 'data-testid': 'update-btn' }).first().prop('disabled')).toEqual(true);
     });
     it('exists when there are new local updates in the matrix store', () => {
       const updatedStore = mockStore({
@@ -82,11 +85,26 @@ describe(MatrixTable, () => {
             }],
             skill_level_options: [{ id: '1', display: '' }],
           },
+        },
+        updateMatrixReducer: {
+          matrix: {
+            data: [{
+              id: 1,
+              learning_outcome: 'The Four-Phase Test',
+              skills_level: '2',
+              theme: {
+                title: 'Automated Testing',
+                link: 'https://github.com/abc',
+              },
+              apprenticeship_level: 1,
+            }],
+            skill_level_options: [{ id: '1', display: '' }, { id: '2', display: '' }],
+          },
           newUpdates: true,
         },
       });
       wrapper = mount(<Provider store={updatedStore}><MatrixTable /></Provider>);
-      expect(wrapper.find({ 'data-testid': 'update-btn' }).length).toBeGreaterThan(0);
+      expect(wrapper.find({ 'data-testid': 'update-btn' }).first().prop('disabled')).toEqual(false);
     });
   });
 });

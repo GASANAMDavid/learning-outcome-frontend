@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
 import getCurrentMatrixReducer from './getCurrentMatrix';
-import updateDatabaseMatrixReducer from './updateDatabaseMatrix';
+import updateMatrixReducer from './updateMatrix';
 
-export default combineReducers({ getCurrentMatrixReducer, updateDatabaseMatrixReducer });
+export default combineReducers({ getCurrentMatrixReducer, updateMatrixReducer });

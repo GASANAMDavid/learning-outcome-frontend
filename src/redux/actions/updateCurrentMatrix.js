@@ -5,8 +5,13 @@ const updateLocalMatrixSuccess = (payload) => ({
   payload,
 });
 
-const setNewUpdateFlag = (payload) => ({
+export const setNewUpdateFlag = (payload) => ({
   type: 'SET_NEW_UPDATE_FLAG',
+  payload,
+});
+
+export const updateOriginalLocalMatrix = (payload) => ({
+  type: 'UPDATE_ORIGINAL_MATRIX',
   payload,
 });
 
@@ -15,19 +20,16 @@ const updateDatabaseMatrixSuccess = (payload) => ({
   payload,
 });
 
-const updateLocalMatrix = (payload) => (dispatch) => {
+export const updateLocalMatrix = (payload) => (dispatch) => {
   dispatch(updateLocalMatrixSuccess(payload.newSkillLevel));
-  dispatch(setNewUpdateFlag(payload.flag));
 };
 
 export const updateDatabaseMatrix = (updates) => (dispatch) => {
   dispatch(setNewUpdateFlag(false));
   return axios
     .put('http://localhost:3000/learning_outcome_matrix', updates)
-    .then(({ data }) => {
-      dispatch(updateDatabaseMatrixSuccess(data));
+    .then(() => {
+      dispatch(updateDatabaseMatrixSuccess({ message: 'Updated successfully' }));
     })
     .catch((error) => { console.log(error); });
 };
-
-export default updateLocalMatrix;

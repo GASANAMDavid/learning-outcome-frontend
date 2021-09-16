@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import _ from 'lodash';
 import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -11,7 +12,7 @@ import Button from '@material-ui/core/Button';
 import TableRow from '@material-ui/core/TableRow';
 import SkillRow from './SkillRow';
 import getCurrentMatrix from '../../redux/actions/getCurrentMatrix';
-import { updateDatabaseMatrix } from '../../redux/actions/updateCurrentMatrix';
+import { updateDatabaseMatrix, updateOriginalLocalMatrix } from '../../redux/actions/updateCurrentMatrix';
 
 const useStyles = makeStyles({
   root: {
@@ -24,8 +25,6 @@ const useStyles = makeStyles({
     marginTop: '20px',
     marginRight: '60px',
     width: '10%',
-    backgroundColor: '#4a938f',
-    border: '2px solid black',
     display: 'flex',
     float: 'right',
   },
@@ -33,8 +32,9 @@ const useStyles = makeStyles({
 
 const MatrixTable = () => {
   const dispatch = useDispatch();
-  const store = useSelector((state) => state.getCurrentMatrixReducer);
-  const newStore = useSelector((state) => state.updateDatabaseMatrixReducer);
+
+  const originalStore = useSelector((state) => state.getCurrentMatrixReducer);
+  const updatesStore = useSelector((state) => state.updateMatrixReducer);
   useEffect(() => {
     dispatch(getCurrentMatrix());
   }, [dispatch]);
@@ -57,13 +57,11 @@ const MatrixTable = () => {
 
   const handleUpdate = () => {
     const newUpdates = { matrix: [] };
-    store.matrix.data.forEach((outcome) => {
+    updatesStore.matrix.data.forEach((outcome) => {
       newUpdates.matrix.push({ id: outcome.id, skills_level_id: outcome.skills_level });
     });
     dispatch(updateDatabaseMatrix(newUpdates));
-
-    // eslint-disable-next-line no-console
-    console.log(newStore.message);
+    dispatch(updateOriginalLocalMatrix(updatesStore.matrix));
   };
 
   const classes = useStyles();
@@ -83,29 +81,30 @@ const MatrixTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {store.matrix.data
-                .map((row) => (
+              {updatesStore.matrix.data
+                .map((row, index) => (
                   <SkillRow
+                    index={index}
                     key={row.id}
                     row={row}
-                    skillLevelOptions={store.matrix.skill_level_options}
+                    skillLevelOptions={updatesStore.matrix.skill_level_options}
                   />
                 ))}
             </TableBody>
           </Table>
         </TableContainer>
       </Paper>
-      {
-        store.newUpdates ? (
-          <Button
-            data-testid="update-btn"
-            className={classes.update_btn}
-            onClick={() => handleUpdate()}
-          >
-            Update Matrix
-          </Button>
-        ) : <div />
-      }
+      <Button
+        variant="contained"
+        color="primary"
+        // eslint-disable-next-line max-len
+        disabled={(_(updatesStore.matrix.data).differenceWith(originalStore.matrix.data, _.isEqual).isEmpty())}
+        data-testid="update-btn"
+        className={classes.update_btn}
+        onClick={() => handleUpdate()}
+      >
+        Update Matrix
+      </Button>
     </>
   );
   return (

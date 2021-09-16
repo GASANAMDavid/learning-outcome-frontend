@@ -20,6 +20,17 @@ describe('App', () => {
         errors: '',
       },
     },
+    updateMatrixReducer: {
+      matrix: {
+        data: [{
+          id: '1',
+          skills_level: '1',
+          theme: {},
+        }],
+        skill_level_options: [{ id: '1', display: '' }],
+        errors: '',
+      },
+    },
   };
   const mockStore = configureStore([thunk]);
   const store = mockStore(state);
