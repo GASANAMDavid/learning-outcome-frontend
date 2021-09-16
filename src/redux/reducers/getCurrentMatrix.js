@@ -8,8 +8,6 @@ const initialState = {
     }],
     skill_level_options: [{ id: 1, display: '1' }],
   },
-  errors: '',
-  newUpdates: false,
 };
 
 const getCurrentMatrixReducer = (state = initialState, action) => {
@@ -19,24 +17,10 @@ const getCurrentMatrixReducer = (state = initialState, action) => {
       ...state,
       matrix: action.payload.matrix,
     };
-  case 'UPDATE_LOCAL_MATRIX_SUCCESS':
+  case 'UPDATE_ORIGINAL_MATRIX':
     return {
       ...state,
-      matrix: {
-        ...state.matrix,
-        data: state.matrix.data.map((skill) => {
-          if (skill.id === action.payload.id) {
-            return { ...skill, skills_level: action.payload.skills_level };
-          }
-          return skill;
-        }),
-      },
-
-    };
-  case 'SET_NEW_UPDATE_FLAG':
-    return {
-      ...state,
-      newUpdates: action.payload,
+      matrix: action.payload,
     };
   default:
     return state;

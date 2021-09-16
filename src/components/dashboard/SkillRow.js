@@ -1,11 +1,11 @@
-/* eslint-disable no-console */
+
 import React from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {
   MenuItem, Menu, Button, TableRow, TableCell,
 } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
-import updateCurrentMatrix from '../../redux/actions/updateCurrentMatrix';
+import { updateLocalMatrix } from '../../redux/actions/updateCurrentMatrix';
 
 const SkillRow = ({ row, skillLevelOptions }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -20,7 +20,7 @@ const SkillRow = ({ row, skillLevelOptions }) => {
   };
 
   const handleSelectedLevel = (payload) => {
-    dispatch(updateCurrentMatrix(payload));
+    dispatch(updateLocalMatrix(payload));
     handleClose();
   };
 
