@@ -64,6 +64,12 @@ const MatrixTable = () => {
     dispatch(updateOriginalLocalMatrix(updatesStore.matrix));
   };
 
+  const checkNewUpdates = () => {
+    const updatedMatrix = updatesStore.matrix.data;
+    const originalMatrix = originalStore.matrix.data;
+    return _(updatedMatrix).differenceWith(originalMatrix, _.isEqual).isEmpty();
+  };
+
   const classes = useStyles();
 
   const createTable = () => (
@@ -98,7 +104,7 @@ const MatrixTable = () => {
         variant="contained"
         color="primary"
         // eslint-disable-next-line max-len
-        disabled={(_(updatesStore.matrix.data).differenceWith(originalStore.matrix.data, _.isEqual).isEmpty())}
+        disabled={checkNewUpdates()}
         data-testid="update-btn"
         className={classes.update_btn}
         onClick={() => handleUpdate()}
