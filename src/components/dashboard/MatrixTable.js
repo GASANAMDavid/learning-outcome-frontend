@@ -24,7 +24,7 @@ const useStyles = makeStyles({
   update_btn: {
     marginTop: '20px',
     marginRight: '60px',
-    width: '10%',
+    width: '17%',
     display: 'flex',
     float: 'right',
   },
@@ -57,9 +57,16 @@ const MatrixTable = () => {
 
   const handleUpdate = () => {
     const newUpdates = { matrix: [] };
-    updatesStore.matrix.data.forEach((outcome) => {
+    const changesMade = _.differenceWith(
+      updatesStore.matrix.data,
+      originalStore.matrix.data,
+      _.isEqual,
+    );
+
+    changesMade.forEach((outcome) => {
       newUpdates.matrix.push({ id: outcome.id, skills_level_id: outcome.skills_level });
     });
+
     dispatch(updateDatabaseMatrix(newUpdates));
     dispatch(updateOriginalLocalMatrix(updatesStore.matrix));
   };
