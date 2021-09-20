@@ -1,11 +1,11 @@
 import React from 'react';
+import SideBar from './SideBar';
 import Header from './Header';
-import MatrixTable from './MatrixTable';
 
 const Dashboard = () => (
   <div>
     <Header />
-    <MatrixTable />
+    <SideBar />
   </div>
 );
 
