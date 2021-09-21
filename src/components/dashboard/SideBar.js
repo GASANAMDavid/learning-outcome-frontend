@@ -1,19 +1,42 @@
 import React from 'react';
-import { List, ListItem } from '@material-ui/core';
-import MatrixTable from './MatrixTable';
-import History from './History';
+import { useHistory, useLocation } from 'react-router';
+import {
+  List, ListItem, ListItemText,
+} from '@material-ui/core';
 
-const SideBar = () => (
-  <div>
-    <List>
-      <ListItem button key="current matrix">
-        <MatrixTable />
-      </ListItem>
-      <ListItem button key="history">
-        <History />
-      </ListItem>
-    </List>
-  </div>
-);
+import { makeStyles } from '@material-ui/styles';
+
+const useStyles = makeStyles({
+  active: {
+    backgroundColor: 'f4f4f4',
+  },
+});
+
+const SideBar = () => {
+  const classes = useStyles();
+  const history = useHistory();
+  const location = useLocation();
+
+  return (
+    <div>
+      <List dense>
+        <ListItem
+          button
+          onClick={() => history.push('/dashboard/matrix_table')}
+          className={location.pathname === '/dashboard/matrix_table' ? classes.active : null}
+        >
+          <ListItemText primary="Current Matrix" />
+        </ListItem>
+        <ListItem
+          button
+          onClick={() => history.push('/dashboard/history')}
+          className={location.pathname === '/dashboard/history' ? classes.active : null}
+        >
+          <ListItemText primary="History" />
+        </ListItem>
+      </List>
+    </div>
+  );
+};
 
 export default SideBar;

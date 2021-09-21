@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import { Box, ListItemText } from '@material-ui/core';
