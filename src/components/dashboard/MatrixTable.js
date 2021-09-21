@@ -110,7 +110,6 @@ const MatrixTable = () => {
       <Button
         variant="contained"
         color="primary"
-        // eslint-disable-next-line max-len
         disabled={checkNewUpdates()}
         data-testid="update-btn"
         className={classes.update_btn}

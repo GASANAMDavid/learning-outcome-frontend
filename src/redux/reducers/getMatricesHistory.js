@@ -1,6 +1,6 @@
 const initialState = {
   matrices: [{
-    matrix: [],
+    data: [],
     updated_at: '',
   }],
 };

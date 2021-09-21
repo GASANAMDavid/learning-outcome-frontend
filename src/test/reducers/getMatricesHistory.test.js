@@ -3,7 +3,7 @@ import getMatricesHistoryReducer from '../../redux/reducers/getMatricesHistory';
 describe(getMatricesHistoryReducer, () => {
   const initialState = {
     matrices: [{
-      matrix: [],
+      data: [],
       updated_at: '',
     }],
   };
