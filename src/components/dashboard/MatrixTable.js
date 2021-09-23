@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
-import _ from 'lodash';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+// import _ from 'lodash';
+// import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -8,11 +8,9 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
-import Button from '@material-ui/core/Button';
+import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import SkillRow from './SkillRow';
-import getCurrentMatrix from '../../redux/actions/getCurrentMatrix';
-import { updateDatabaseMatrix, updateOriginalLocalMatrix } from '../../redux/actions/updateCurrentMatrix';
 
 const useStyles = makeStyles({
   root: {
@@ -30,14 +28,9 @@ const useStyles = makeStyles({
   },
 });
 
-const MatrixTable = () => {
-  const dispatch = useDispatch();
-
-  const originalStore = useSelector((state) => state.getCurrentMatrixReducer);
-  const updatesStore = useSelector((state) => state.updateMatrixReducer);
-  useEffect(() => {
-    dispatch(getCurrentMatrix());
-  }, [dispatch]);
+const MatrixTable = ({ rows, skillLevelOptions }) => {
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const columns = [{
     id: 'theme',
@@ -54,36 +47,22 @@ const MatrixTable = () => {
     label: 'Skill Level',
   },
   ];
-
-  const handleUpdate = () => {
-    const newUpdates = { matrix: [] };
-    const changesMade = _.differenceWith(
-      updatesStore.matrix.data,
-      originalStore.matrix.data,
-      _.isEqual,
-    );
-
-    changesMade.forEach((outcome) => {
-      newUpdates.matrix.push({ id: outcome.id, skills_level_id: outcome.skills_level });
-    });
-
-    dispatch(updateDatabaseMatrix(newUpdates));
-    dispatch(updateOriginalLocalMatrix(updatesStore.matrix));
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
   };
 
-  const checkNewUpdates = () => {
-    const updatedMatrix = updatesStore.matrix.data;
-    const originalMatrix = originalStore.matrix.data;
-    return _(updatedMatrix).differenceWith(originalMatrix, _.isEqual).isEmpty();
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
   };
 
   const classes = useStyles();
 
   const createTable = () => (
     <>
-      <Paper className={classes.root}>
-        <TableContainer className={classes.container}>
-          <Table>
+      <Paper className={classes.root} sx={{ width: '100%', overflow: 'hidden' }}>
+        <TableContainer className={classes.container} sx={{ maxHeight: 800 }}>
+          <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>
                 {columns.map((column) => (
@@ -94,29 +73,29 @@ const MatrixTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {updatesStore.matrix.data
+              {rows
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => (
                   <SkillRow
                     index={index}
                     key={row.id}
                     row={row}
-                    skillLevelOptions={updatesStore.matrix.skill_level_options}
+                    skillLevelOptions={skillLevelOptions}
                   />
                 ))}
             </TableBody>
           </Table>
         </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[10, 15, 20, 25]}
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
       </Paper>
-      <Button
-        variant="contained"
-        color="primary"
-        disabled={checkNewUpdates()}
-        data-testid="update-btn"
-        className={classes.update_btn}
-        onClick={() => handleUpdate()}
-      >
-        Update Matrix
-      </Button>
     </>
   );
   return (
