@@ -16,14 +16,16 @@ describe('getHistory action', () => {
   it('has an action to get history on success', () => {
     const store = mockStore({});
     const expectedMatricesHistory = {
-      matrices: [{
-        matrix: [
-          {
-            id: 1,
-          },
-        ],
-        updated_at: new Date().toUTCString,
-      }],
+      matrices: [
+        {
+          matrix: [
+            {
+              id: 1,
+            },
+          ],
+          updated_at: 166772374,
+        },
+      ],
     };
 
     moxios.wait(() => {
@@ -34,13 +36,30 @@ describe('getHistory action', () => {
       });
     });
 
-    return store.dispatch(getMatricesHistory())
-      .then(() => {
-        const expectedActions = [{
+    return store.dispatch(getMatricesHistory()).then(() => {
+      const expectedActions = [
+        {
           type: 'GET_HISTORY_SUCCESS',
           payload: expectedMatricesHistory,
-        }];
-        expect(store.getActions()).toEqual(expectedActions);
-      });
+        },
+      ];
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  it('has an action to set a version to be displayed', () => {
+    const currentState = {
+      version_id: 1,
+    };
+
+    const store = mockStore(currentState);
+    const expectedActions = [
+      {
+        type: 'SET_VERSION_ID_TO_BE_DISPLAYED',
+        payload: 2,
+      },
+    ];
+
+    expect(store.getActions()).toEqual(expectedActions);
   });
 });
