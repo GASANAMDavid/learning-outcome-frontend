@@ -1,24 +1,22 @@
 import React from 'react';
-import { Card, CardHeader } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
+import {
+  Card, CardContent, CardHeader, Fab,
+} from '@material-ui/core';
 
-const useStyles = makeStyles({
-  root: {
-    marginBottom: '15px',
-    width: '500px',
-  },
-});
-
-const Version = ({ date, title }) => {
-  const classes = useStyles();
-  return (
-    <Card className={classes.root}>
+const Version = ({ date, title }) => (
+  <div style={{ height: '200px', width: '350px', margin: '16px' }}>
+    <Card style={{ height: '100%', width: '350px' }}>
       <CardHeader
         title={title}
-        subheader={`Updated At ${date}`}
+        subheader={date}
+        style={{ textAlign: 'center' }}
       />
+      <CardContent style={{ textAlign: 'center' }}>
+        <Fab variant="extended" color="primary" aria-label="add">
+          view
+        </Fab>
+      </CardContent>
     </Card>
-  );
-};
-
+  </div>
+);
 export default Version;

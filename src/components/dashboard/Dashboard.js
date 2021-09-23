@@ -41,7 +41,6 @@ const Dashboard = ({ children }) => {
         </Drawer>
         <div className={classes.page}>
           <Container>
-
             {children}
           </Container>
         </div>
