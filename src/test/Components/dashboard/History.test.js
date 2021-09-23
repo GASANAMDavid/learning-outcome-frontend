@@ -12,11 +12,11 @@ describe(History, () => {
     getMatricesHistoryReducer: {
       matrices: [{
         data: [],
-        updated_at: '2021-09-20 06:53:42 UTC',
+        updated_at: 1632228060,
       },
       {
         data: [],
-        updated_at: '2021-09-20 09:34:09 UTC',
+        updated_at: 1632400860,
       },
       ],
     },
