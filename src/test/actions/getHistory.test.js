@@ -1,7 +1,9 @@
 import moxios from 'moxios';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import getMatricesHistory from '../../redux/actions/getMatricesHistory';
+import getMatricesHistory, {
+  setVersionIdToBeDisplayed,
+} from '../../redux/actions/getMatricesHistory';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -18,7 +20,8 @@ describe('getHistory action', () => {
     const expectedMatricesHistory = {
       matrices: [
         {
-          matrix: [
+          id: 1,
+          data: [
             {
               id: 1,
             },
@@ -26,6 +29,7 @@ describe('getHistory action', () => {
           updated_at: 166772374,
         },
       ],
+      skill_level_options: [{ id: '1', display: '' }],
     };
 
     moxios.wait(() => {
@@ -39,6 +43,10 @@ describe('getHistory action', () => {
     return store.dispatch(getMatricesHistory()).then(() => {
       const expectedActions = [
         {
+          type: 'SET_VERSION_ID_TO_BE_DISPLAYED',
+          payload: 1,
+        },
+        {
           type: 'GET_HISTORY_SUCCESS',
           payload: expectedMatricesHistory,
         },
@@ -49,17 +57,18 @@ describe('getHistory action', () => {
 
   it('has an action to set a version to be displayed', () => {
     const currentState = {
-      version_id: 1,
+      versionId: 1,
     };
 
     const store = mockStore(currentState);
     const expectedActions = [
       {
         type: 'SET_VERSION_ID_TO_BE_DISPLAYED',
-        payload: 2,
+        payload: 1,
       },
     ];
 
+    store.dispatch(setVersionIdToBeDisplayed(1));
     expect(store.getActions()).toEqual(expectedActions);
   });
 });

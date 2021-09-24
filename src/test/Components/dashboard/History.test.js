@@ -9,12 +9,17 @@ describe(History, () => {
   const mockStore = configureStore([thunk]);
   let wrapper;
   const store = mockStore({
+    setVersionIdToBeDisplayedReducer: {
+      versionId: 2,
+    },
     getMatricesHistoryReducer: {
       matrices: [{
+        id: 1,
         data: [],
         updated_at: 1632228060,
       },
       {
+        id: 2,
         data: [],
         updated_at: 1632400860,
       },

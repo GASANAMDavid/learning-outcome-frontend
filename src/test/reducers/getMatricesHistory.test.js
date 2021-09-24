@@ -2,10 +2,14 @@ import getMatricesHistoryReducer from '../../redux/reducers/getMatricesHistory';
 
 describe(getMatricesHistoryReducer, () => {
   const initialState = {
-    matrices: [{
-      data: [],
-      updated_at: '',
-    }],
+    matrices: [
+      {
+        id: 1,
+        data: [{ id: 1, theme: { title: '' }, skills_level: 1 }],
+        updated_at: 16789245,
+      },
+    ],
+    skill_level_options: [{ id: 1, display: '1' }],
   };
 
   const action = {
@@ -13,7 +17,8 @@ describe(getMatricesHistoryReducer, () => {
     payload: {
       matrices: [
         {
-          matrix: [{
+          id: 1,
+          data: [{
             id: 1,
             learning_outcome: 'Testing redux',
             skills_level: 1,
@@ -24,7 +29,7 @@ describe(getMatricesHistoryReducer, () => {
             apprenticeship_level: 1,
           }],
 
-          updated_at: '',
+          updated_at: 12345,
         },
       ],
     },
@@ -37,7 +42,8 @@ describe(getMatricesHistoryReducer, () => {
     expect(getMatricesHistoryReducer(undefined, action)).toEqual({
       matrices: [
         {
-          matrix: [{
+          id: 1,
+          data: [{
             id: 1,
             learning_outcome: 'Testing redux',
             skills_level: 1,
@@ -48,7 +54,7 @@ describe(getMatricesHistoryReducer, () => {
             apprenticeship_level: 1,
           }],
 
-          updated_at: '',
+          updated_at: 12345,
         },
       ],
     });
