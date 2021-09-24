@@ -1,19 +1,36 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
+import configureStore from 'redux-mock-store';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 import Dashboard from '../components/dashboard/Dashboard';
 import App from '../App';
 
 describe('App', () => {
-  it('renders correctly', () => {
-    shallow(<App />);
-  });
+  const state = {
+    getCurrentMatrixReducer: {
+      matrix: {
+        data: [{
+          id: '',
+          theme: {},
+        }],
+        skill_level_options: [{}],
+        errors: '',
+      },
+    },
+  };
+  const mockStore = configureStore([thunk]);
+  const store = mockStore(state);
 
   it('renders dashboard component for /dashboard path', () => {
     const wrapper = mount(
-      <MemoryRouter initialEntries={['/dashboard']}>
-        <App />
-      </MemoryRouter>,
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/dashboard']}>
+          <App />
+        </MemoryRouter>
+        ,
+      </Provider>,
     );
     expect(wrapper.find(Dashboard)).toHaveLength(1);
   });
