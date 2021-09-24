@@ -1,24 +1,24 @@
-import getCurrentMatrixreducer from '../../redux/reducers/getCurrentMatrix';
+import getCurrentMatrixReducer from '../../redux/reducers/getCurrentMatrix';
 
-describe('getCurrentMatrix reducer', () => {
+describe(getCurrentMatrixReducer, () => {
   const initialState = {
     matrix: {
       data: [{
-        id: '',
+        id: '1',
+        skills_level: 1,
         theme: {
         },
       }],
-      skill_level_options: [],
+      skill_level_options: [{ id: 1, display: '1' }],
     },
-    errors: '',
   };
   const action = {
     type: 'GET_CURRENT_MATRIX_SUCCESS',
     payload: {
       matrix: {
         data: [{
-          id: '1',
-          learning_outcome: 'Tessing redux',
+          id: 1,
+          learning_outcome: 'Testing redux',
           skills_level: 1,
           theme: {
             title: 'Automated testing',
@@ -36,15 +36,15 @@ describe('getCurrentMatrix reducer', () => {
     },
   };
   it('should return initialState', () => {
-    expect(getCurrentMatrixreducer(undefined, {})).toEqual(initialState);
+    expect(getCurrentMatrixReducer(undefined, {})).toEqual(initialState);
   });
 
   it('returns the current outcome matrix state on success', () => {
-    expect(getCurrentMatrixreducer(undefined, action)).toEqual({
+    expect(getCurrentMatrixReducer(undefined, action)).toEqual({
       matrix: {
         data: [{
-          id: '1',
-          learning_outcome: 'Tessing redux',
+          id: 1,
+          learning_outcome: 'Testing redux',
           skills_level: 1,
           theme: {
             title: 'Automated testing',
@@ -59,7 +59,6 @@ describe('getCurrentMatrix reducer', () => {
               color: 'white',
             }],
       },
-      errors: '',
     });
   });
 });

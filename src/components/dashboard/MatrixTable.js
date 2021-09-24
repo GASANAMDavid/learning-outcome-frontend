@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+// import _ from 'lodash';
+// import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -7,9 +8,9 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
+import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import SkillRow from './SkillRow';
-import getCurrentMatrix from '../../redux/actions/getCurrentMatrix';
 
 const useStyles = makeStyles({
   root: {
@@ -18,14 +19,18 @@ const useStyles = makeStyles({
   container: {
     maxHeight: 800,
   },
+  update_btn: {
+    marginTop: '20px',
+    marginRight: '60px',
+    width: '17%',
+    display: 'flex',
+    float: 'right',
+  },
 });
 
-const MatrixTable = () => {
-  const dispatch = useDispatch();
-  const matrix = useSelector((state) => state.getCurrentMatrixReducer.matrix);
-  useEffect(() => {
-    dispatch(getCurrentMatrix());
-  }, [dispatch]);
+const MatrixTable = ({ rows, skillLevelOptions }) => {
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const columns = [{
     id: 'theme',
@@ -42,33 +47,56 @@ const MatrixTable = () => {
     label: 'Skill Level',
   },
   ];
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
 
   const classes = useStyles();
 
   const createTable = () => (
-    <Paper className={classes.root}>
-      <TableContainer className={classes.container}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {matrix.data
-              .map((row) => (
-                <SkillRow key={row.id} row={row} skillLevelOptions={matrix.skill_level_options} />
-              ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Paper>
+    <>
+      <Paper className={classes.root} sx={{ width: '100%', overflow: 'hidden' }}>
+        <TableContainer className={classes.container} sx={{ maxHeight: 800 }}>
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead>
+              <TableRow>
+                {columns.map((column) => (
+                  <TableCell key={column.id}>
+                    {column.label}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row, index) => (
+                  <SkillRow
+                    index={index}
+                    key={row.id}
+                    row={row}
+                    skillLevelOptions={skillLevelOptions}
+                  />
+                ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[10, 15, 20, 25]}
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </Paper>
+    </>
   );
   return (
     <div>

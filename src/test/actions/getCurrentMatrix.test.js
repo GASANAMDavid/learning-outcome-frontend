@@ -17,13 +17,14 @@ describe('getCurrentMatrix action', () => {
     const initialState = {
       matrix: {},
       errors: '',
+      newUpdates: false,
     };
     const store = mockStore(initialState);
     const expectedOutcomeMatrix = {
       matrix: {
         data: [{
           id: '1',
-          learning_outcome: 'Tessing redux',
+          learning_outcome: 'Testing redux',
           skills_level: 1,
           theme: {
             title: 'Automated testing',

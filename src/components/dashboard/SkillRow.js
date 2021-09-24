@@ -1,12 +1,15 @@
-/* eslint-disable no-console */
+
 import React from 'react';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {
   MenuItem, Menu, Button, TableRow, TableCell,
 } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+import { updateLocalMatrix } from '../../redux/actions/updateCurrentMatrix';
 
 const SkillRow = ({ row, skillLevelOptions }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const dispatch = useDispatch();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -15,9 +18,18 @@ const SkillRow = ({ row, skillLevelOptions }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  let value = 0;
+
+  const handleSelectedLevel = (payload) => {
+    dispatch(updateLocalMatrix(payload));
+    handleClose();
+  };
+
+  const getSkillLevelDIsplayMessage = () => {
+    const level = skillLevelOptions.find((skillLevel) => skillLevel.id === row.skills_level);
+    return level.display;
+  };
   return (
-    <TableRow hover tabIndex={-1} key={row.id}>
+    <TableRow hover tabIndex={-1}>
       <TableCell>
         {row.theme.title}
       </TableCell>
@@ -30,12 +42,13 @@ const SkillRow = ({ row, skillLevelOptions }) => {
       <TableCell>
         <Button
           className="skills-level-btn"
+          data-testid="skill-level-btn"
           aria-controls="skills-options-menu"
           aria-haspopup="true"
           endIcon={<ExpandMoreIcon />}
           onClick={handleClick}
         >
-          {row.skills_level}
+          {getSkillLevelDIsplayMessage()}
         </Button>
 
         <Menu
@@ -46,16 +59,27 @@ const SkillRow = ({ row, skillLevelOptions }) => {
           onClose={handleClose}
         >
           {
-            skillLevelOptions.map((option) => {
-              value += 1;
-              return (
-                <MenuItem key={value} onClick={handleClose}>{option.description}</MenuItem>
-              );
-            })
+            skillLevelOptions.map((option) => (
+              <MenuItem
+                key={option.id}
+                onClick={() => handleSelectedLevel(
+                  {
+                    newSkillLevel: {
+                      id: row.id, skills_level: option.id,
+                    },
+                    flag: true,
+                  },
+                )}
+              >
+                {option.description}
+
+              </MenuItem>
+            ))
           }
         </Menu>
       </TableCell>
     </TableRow>
+
   );
 };
 

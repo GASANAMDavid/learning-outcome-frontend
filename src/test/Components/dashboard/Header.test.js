@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 
 import Header from '../../../components/dashboard/Header';
 
-describe('Dashboard', () => {
+describe(Header, () => {
   let wrapper;
 
   beforeEach(() => {

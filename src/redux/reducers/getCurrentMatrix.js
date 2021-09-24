@@ -1,13 +1,13 @@
 const initialState = {
   matrix: {
     data: [{
-      id: '',
+      id: '1',
       theme: {
       },
+      skills_level: 1,
     }],
-    skill_level_options: [],
+    skill_level_options: [{ id: 1, display: '1' }],
   },
-  errors: '',
 };
 
 const getCurrentMatrixReducer = (state = initialState, action) => {
@@ -17,7 +17,11 @@ const getCurrentMatrixReducer = (state = initialState, action) => {
       ...state,
       matrix: action.payload.matrix,
     };
-
+  case 'UPDATE_ORIGINAL_MATRIX':
+    return {
+      ...state,
+      matrix: action.payload,
+    };
   default:
     return state;
   }
