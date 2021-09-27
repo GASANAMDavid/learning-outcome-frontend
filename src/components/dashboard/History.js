@@ -4,6 +4,7 @@ import { fromUnixTime, format } from 'date-fns';
 import getMatricesHistory from '../../redux/actions/getMatricesHistory';
 import Version from './Version';
 import MatrixTable from './MatrixTable';
+import SkeletonTable from './SkeletonTable';
 
 const History = () => {
   const dispatch = useDispatch();
@@ -39,10 +40,12 @@ const History = () => {
         }
       </div>
       <div>
-        <MatrixTable
-          rows={getVersionRowsData(historyStore.matrices)}
-          skillLevelOptions={historyStore.skill_level_options}
-        />
+        {historyStore.isLoading ? <SkeletonTable skillLevelOptions={[]} /> : (
+          <MatrixTable
+            rows={getVersionRowsData(historyStore.matrices)}
+            skillLevelOptions={historyStore.skill_level_options}
+          />
+        )}
       </div>
     </>
 
