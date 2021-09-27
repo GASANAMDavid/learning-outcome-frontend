@@ -43,6 +43,9 @@ describe('getHistory action', () => {
     return store.dispatch(getMatricesHistory()).then(() => {
       const expectedActions = [
         {
+          type: 'GET_MATRICES_HISTORY_START',
+        },
+        {
           type: 'SET_VERSION_ID_TO_BE_DISPLAYED',
           payload: 1,
         },

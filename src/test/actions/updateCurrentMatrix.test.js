@@ -23,8 +23,8 @@ describe('updateCurrentMatrix', () => {
             },
           }],
         },
-        errors: '',
-        newUpdates: false,
+        errors: null,
+        isLoading: false,
       };
       const store = mockStore(currentState);
       const newSkillLevel = {
@@ -44,7 +44,7 @@ describe('updateCurrentMatrix', () => {
     it('has an action to update the database matrix', () => {
       const currentState = {
         message: '',
-        errors: '',
+        errors: null,
       };
 
       const store = mockStore(currentState);

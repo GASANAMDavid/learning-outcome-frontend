@@ -10,89 +10,117 @@ describe(CurrentMatrix, () => {
   const mockStore = configureStore([thunk]);
   const useDispatchSpy = jest.spyOn(redux, 'useDispatch');
   let wrapper;
-  const store = mockStore({
-    getCurrentMatrixReducer: {
-      matrix: {
-        data: [{
-          id: 1,
-          learning_outcome: 'The Four-Phase Test',
-          skills_level: '1',
-          theme: {
-            title: 'Automated Testing',
-            link: 'https://github.com/abc',
-          },
-          apprenticeship_level: 1,
-        }],
-        skill_level_options: [{ id: '1', display: '' }, { id: '2', display: '' }],
-      },
-    },
-    updateMatrixReducer: {
-      matrix: {
-        data: [{
-          id: 1,
-          learning_outcome: 'The Four-Phase Test',
-          skills_level: '1',
-          theme: {
-            title: 'Automated Testing',
-            link: 'https://github.com/abc',
-          },
-          apprenticeship_level: 1,
-        }],
-        skill_level_options: [{ id: '1', display: '' }, { id: '2', display: '' }],
-      },
-    },
-  });
 
   beforeEach(() => {
     const mockDispatchFn = jest.fn();
     useDispatchSpy.mockReturnValue(mockDispatchFn);
-    wrapper = mount(<Provider store={store}><CurrentMatrix /></Provider>);
   });
-
   afterEach(() => {
     useDispatchSpy.mockClear();
   });
 
-  describe('update button', () => {
-    it('disabled when there are no new local updates', () => {
-      expect(wrapper.find({ 'data-testid': 'update-btn' }).first().prop('disabled')).toEqual(true);
+  describe('Before finishing fetching data from the server', () => {
+    const store = mockStore({
+      getCurrentMatrixReducer: {
+        matrix: {},
+        isLoading: true,
+      },
+      updateMatrixReducer: {
+        matrix: {
+          data: [{}],
+          skill_level_options: [],
+        },
+      },
     });
-    it('exists when there are new local updates in the matrix store', () => {
-      const updatedStore = mockStore({
-        getCurrentMatrixReducer: {
-          matrix: {
-            data: [{
-              id: 1,
-              learning_outcome: 'The Four-Phase Test',
-              skills_level: '1',
-              theme: {
-                title: 'Automated Testing',
-                link: 'https://github.com/abc',
-              },
-              apprenticeship_level: 1,
-            }],
-            skill_level_options: [{ id: '1', display: '' }],
-          },
+
+    it('renders the SkeletonTable component', () => {
+      wrapper = mount(<Provider store={store}><CurrentMatrix /></Provider>);
+      expect(wrapper.find('SkeletonTable')).toHaveLength(1);
+    });
+  });
+
+  describe('After fetching data from the server', () => {
+    const store = mockStore({
+      getCurrentMatrixReducer: {
+        matrix: {
+          data: [{
+            id: 1,
+            learning_outcome: 'The Four-Phase Test',
+            skills_level: '1',
+            theme: {
+              title: 'Automated Testing',
+              link: 'https://github.com/abc',
+            },
+            apprenticeship_level: 1,
+          }],
+          skill_level_options: [{ id: '1', display: '' }, { id: '2', display: '' }],
         },
-        updateMatrixReducer: {
-          matrix: {
-            data: [{
-              id: 1,
-              learning_outcome: 'The Four-Phase Test',
-              skills_level: '2',
-              theme: {
-                title: 'Automated Testing',
-                link: 'https://github.com/abc',
-              },
-              apprenticeship_level: 1,
-            }],
-            skill_level_options: [{ id: '1', display: '' }, { id: '2', display: '' }],
-          },
-          newUpdates: true,
+        isLoading: false,
+      },
+      updateMatrixReducer: {
+        matrix: {
+          data: [{
+            id: 1,
+            learning_outcome: 'The Four-Phase Test',
+            skills_level: '1',
+            theme: {
+              title: 'Automated Testing',
+              link: 'https://github.com/abc',
+            },
+            apprenticeship_level: 1,
+          }],
+          skill_level_options: [{ id: '1', display: '' }, { id: '2', display: '' }],
         },
+      },
+    });
+    beforeEach(() => {
+      wrapper = mount(<Provider store={store}><CurrentMatrix /></Provider>);
+    });
+
+    describe('update button', () => {
+      it('disabled when there are no new local updates', () => {
+        expect(wrapper.find({ 'data-testid': 'update-btn' }).first().prop('disabled')).toEqual(true);
       });
-      wrapper = mount(<Provider store={updatedStore}><CurrentMatrix /></Provider>);
-      expect(wrapper.find({ 'data-testid': 'update-btn' }).first().prop('disabled')).toEqual(false);
+      it('exists when there are new local updates in the matrix store', () => {
+        const updatedStore = mockStore({
+          getCurrentMatrixReducer: {
+            matrix: {
+              data: [{
+                id: 1,
+                learning_outcome: 'The Four-Phase Test',
+                skills_level: '1',
+                theme: {
+                  title: 'Automated Testing',
+                  link: 'https://github.com/abc',
+                },
+                apprenticeship_level: 1,
+              }],
+              skill_level_options: [{ id: '1', display: '' }],
+            },
+            isLoading: false,
+            errors: null,
+          },
+          updateMatrixReducer: {
+            matrix: {
+              data: [{
+                id: 1,
+                learning_outcome: 'The Four-Phase Test',
+                skills_level: '2',
+                theme: {
+                  title: 'Automated Testing',
+                  link: 'https://github.com/abc',
+                },
+                apprenticeship_level: 1,
+              }],
+              skill_level_options: [{ id: '1', display: '' }, { id: '2', display: '' }],
+            },
+            isLoading: false,
+            errors: null,
+          },
+        });
+        wrapper = mount(<Provider store={updatedStore}><CurrentMatrix /></Provider>);
+        expect(wrapper.find({ 'data-testid': 'update-btn' }).first().prop('disabled')).toEqual(false);
+      });
     });
   });
 });

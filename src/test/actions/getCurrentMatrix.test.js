@@ -51,11 +51,20 @@ describe('getCurrentMatrix action', () => {
 
     return store.dispatch(getCurrentMatrix())
       .then(() => {
-        const expectedActions = {
-          type: 'GET_CURRENT_MATRIX_SUCCESS',
-          payload: expectedOutcomeMatrix,
-        };
-        expect(store.getActions()[0]).toEqual(expectedActions);
+        const expectedActions = [
+          {
+            type: 'GET_CURRENT_MATRIX_START',
+          },
+          {
+            type: 'GET_CURRENT_MATRIX_SUCCESS',
+            payload: expectedOutcomeMatrix,
+          },
+          {
+            type: 'MAKE_LOCAL_MATRIX_COPY',
+            payload: expectedOutcomeMatrix,
+          },
+        ];
+        expect(store.getActions()).toEqual(expectedActions);
       });
   });
 });
