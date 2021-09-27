@@ -11,6 +11,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import SkillRow from './SkillRow';
+import Help from '../Helpers/Help';
 
 const useStyles = makeStyles({
   root: {
@@ -45,6 +46,7 @@ const MatrixTable = ({ rows, skillLevelOptions }) => {
   {
     id: 'skill_level',
     label: 'Skill Level',
+    help: <Help levels={skillLevelOptions} />,
   },
   ];
   const handleChangePage = (event, newPage) => {
@@ -68,6 +70,8 @@ const MatrixTable = ({ rows, skillLevelOptions }) => {
                 {columns.map((column) => (
                   <TableCell key={column.id}>
                     {column.label}
+                    {' '}
+                    {column.help}
                   </TableCell>
                 ))}
               </TableRow>

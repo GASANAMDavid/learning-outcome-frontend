@@ -24,6 +24,7 @@ describe(History, () => {
         updated_at: 1632400860,
       },
       ],
+      skill_level_options: [{ id: 1, display: '1' }],
     },
   });
 
