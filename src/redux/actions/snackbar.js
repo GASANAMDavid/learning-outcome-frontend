@@ -1,4 +1,7 @@
 
-export const showErrorSnackbar = (payload) => (dispatch) => dispatch({ type: 'SNACKBAR_ERROR', payload });
+const setSnackbar = (payload) => ({
+  type: 'SET_SNACKBAR',
+  payload,
+});
 
-export const clearSnackbar = () => (dispatch) => dispatch({ type: 'SNACKBAR_CLEAR' });
+export default setSnackbar;
