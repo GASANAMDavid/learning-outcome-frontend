@@ -34,4 +34,10 @@ const Version = ({ date, title, versionId }) => {
   );
 };
 
+Version.defaultProps = {
+  date: '',
+  versionId: 1,
+  title: '',
+};
+
 export default Version;

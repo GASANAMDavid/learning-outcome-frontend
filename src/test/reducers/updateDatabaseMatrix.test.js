@@ -11,9 +11,9 @@ describe(updateMatrixReducer, () => {
       }],
       skill_level_options: [{ id: 1, display: '1' }],
     },
-    errors: '',
     message: '',
-    newUpdates: false,
+    errors: null,
+    isLoading: false,
   };
 
   it('returns initialState', () => {
@@ -28,15 +28,6 @@ describe(updateMatrixReducer, () => {
       },
     };
     expect(updateMatrixReducer(undefined, action).message).toEqual('Updated successfully');
-  });
-
-  it('sets new updates flag to true', () => {
-    const setUpdateFlagAction = {
-      type: 'SET_NEW_UPDATE_FLAG',
-      payload: true,
-    };
-    const state = updateMatrixReducer(initialState, setUpdateFlagAction);
-    expect(state.newUpdates).toBe(true);
   });
 
   it('updates the current outcome matrix state', () => {
@@ -59,8 +50,8 @@ describe(updateMatrixReducer, () => {
             color: 'white',
           }],
       },
-      errors: '',
-      newUpdates: false,
+      errors: null,
+      isLoading: false,
     };
     const updateAction = {
       type: 'UPDATE_LOCAL_MATRIX_SUCCESS',
@@ -88,8 +79,8 @@ describe(updateMatrixReducer, () => {
             color: 'white',
           }],
       },
-      errors: '',
-      newUpdates: false,
+      errors: null,
+      isLoading: false,
     });
   });
 });

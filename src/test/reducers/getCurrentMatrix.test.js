@@ -10,6 +10,7 @@ describe(getCurrentMatrixReducer, () => {
         },
       }],
       skill_level_options: [{ id: 1, display: '1' }],
+      isLoading: false,
     },
   };
   const action = {
@@ -59,6 +60,7 @@ describe(getCurrentMatrixReducer, () => {
               color: 'white',
             }],
       },
+      isLoading: false,
     });
   });
 });

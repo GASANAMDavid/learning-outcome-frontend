@@ -8,9 +8,9 @@ const initialState = {
     }],
     skill_level_options: [{ id: 1, display: '1' }],
   },
-  errors: '',
+  errors: null,
   message: '',
-  newUpdates: false,
+  isLoading: false,
 };
 
 const updateMatrixReducer = (state = initialState, action) => {
@@ -32,11 +32,6 @@ const updateMatrixReducer = (state = initialState, action) => {
           return skill;
         }),
       },
-    };
-  case 'SET_NEW_UPDATE_FLAG':
-    return {
-      ...state,
-      newUpdates: action.payload,
     };
   case 'UPDATE_DATABASE_MATRIX_SUCCESS':
     return {

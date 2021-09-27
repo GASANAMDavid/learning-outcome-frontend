@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import _ from 'lodash';
-import Button from '@material-ui/core/Button';
+import { Button } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
+import SkeletonTable from './SkeletonTable';
 import MatrixTable from './MatrixTable';
 
 import getCurrentMatrix from '../../redux/actions/getCurrentMatrix';
@@ -59,20 +60,26 @@ const CurrentMatrix = () => {
 
   return (
     <>
-      <MatrixTable
-        rows={updatesStore.matrix.data}
-        skillLevelOptions={updatesStore.matrix.skill_level_options}
-      />
-      <Button
-        variant="contained"
-        color="primary"
-        disabled={checkNewUpdates()}
-        data-testid="update-btn"
-        className={classes.update_btn}
-        onClick={() => handleUpdate()}
-      >
-        Update Matrix
-      </Button>
+      {
+        originalStore.isLoading ? <SkeletonTable skillLevelOptions={[]} /> : (
+          <>
+            <MatrixTable
+              rows={updatesStore.matrix.data}
+              skillLevelOptions={updatesStore.matrix.skill_level_options}
+            />
+            <Button
+              variant="contained"
+              color="primary"
+              disabled={checkNewUpdates()}
+              data-testid="update-btn"
+              className={classes.update_btn}
+              onClick={() => handleUpdate()}
+            >
+              Update Matrix
+            </Button>
+          </>
+        )
+      }
     </>
   );
 };

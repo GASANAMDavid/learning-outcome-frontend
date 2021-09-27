@@ -10,6 +10,7 @@ describe(getMatricesHistoryReducer, () => {
       },
     ],
     skill_level_options: [{ id: 1, display: '1' }],
+    isLoading: false,
   };
 
   const action = {
@@ -32,6 +33,7 @@ describe(getMatricesHistoryReducer, () => {
           updated_at: 12345,
         },
       ],
+      skill_level_options: [{ id: 1, display: '1' }],
     },
   };
   it('should return initialState', () => {
@@ -57,6 +59,8 @@ describe(getMatricesHistoryReducer, () => {
           updated_at: 12345,
         },
       ],
+      skill_level_options: [{ id: 1, display: '1' }],
+      isLoading: false,
     });
   });
 });
