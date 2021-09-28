@@ -12,7 +12,6 @@ describe(Version, () => {
 
   it('dispatches an action to set version id to be displayed', () => {
     const wrapper = mount(<Provider store={store}><Version /></Provider>);
-    console.log(wrapper);
     wrapper.find(Fab).simulate('click');
     const expectedActions = [{
       type: 'SET_VERSION_ID_TO_BE_DISPLAYED',
