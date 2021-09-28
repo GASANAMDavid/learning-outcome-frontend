@@ -9,6 +9,11 @@ import App from '../App';
 
 describe('App', () => {
   const state = {
+    snackbarReducer: {
+      snackbarOpen: false,
+      snackbarMessage: '',
+      snackbarType: 'success',
+    },
     getCurrentMatrixReducer: {
       matrix: {
         data: [{

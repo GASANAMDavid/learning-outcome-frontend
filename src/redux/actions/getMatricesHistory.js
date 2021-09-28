@@ -1,4 +1,5 @@
 import axios from 'axios';
+import setSnackbar from './snackbar';
 
 const getMatricesHistoryStart = () => ({
   type: 'GET_MATRICES_HISTORY_START',
@@ -21,7 +22,13 @@ const getMatricesHistory = () => (dispatch) => {
       dispatch(setVersionIdToBeDisplayed(data.matrices[0].id));
       dispatch(getMatricesHistorySuccess(data));
     })
-    .catch(({ error }) => console.log(error));
+    .catch((error) => dispatch(setSnackbar(
+      {
+        snackbarOpen: true,
+        snackbarType: 'error',
+        snackbarMessage: error.message,
+      },
+    )));
 };
 
 export default getMatricesHistory;
