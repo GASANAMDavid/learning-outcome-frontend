@@ -1,4 +1,5 @@
 import axios from 'axios';
+import setSnackbar from './snackbar';
 
 const updateLocalMatrixSuccess = (payload) => ({
   type: 'UPDATE_LOCAL_MATRIX_SUCCESS',
@@ -31,5 +32,11 @@ export const updateDatabaseMatrix = (updates) => (dispatch) => {
     .then(() => {
       dispatch(updateDatabaseMatrixSuccess({ message: 'Updated successfully' }));
     })
-    .catch((error) => { console.log(error); });
+    .catch((error) => dispatch(setSnackbar(
+      {
+        snackbarOpen: true,
+        snackbarType: 'error',
+        snackbarMessage: error.message,
+      },
+    )));
 };

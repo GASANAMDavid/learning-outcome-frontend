@@ -1,4 +1,5 @@
 import axios from 'axios';
+import setSnackbar from './snackbar';
 
 export const getCurrentMatrixSuccess = (payload) => ({
   type: 'GET_CURRENT_MATRIX_SUCCESS',
@@ -24,7 +25,13 @@ const getCurrentMatrix = () => (dispatch) => {
       dispatch(getCurrentMatrixSuccess(data));
       dispatch(makeLocalMatrixCopy(data));
     })
-    .catch((error) => { console.log(error); });
+    .catch((error) => dispatch(setSnackbar(
+      {
+        snackbarOpen: true,
+        snackbarType: 'error',
+        snackbarMessage: error.message,
+      },
+    )));
 };
 
 export default getCurrentMatrix;
