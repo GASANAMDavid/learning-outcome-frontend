@@ -19,7 +19,7 @@ export const makeLocalMatrixCopy = (payload) => ({
 const getCurrentMatrix = () => (dispatch) => {
   dispatch(getCurrentMatrixStart());
   return axios
-    .get('http://localhost:3000/learning_outcome_matrix')
+    .get(`${process.env.REACT_APP_BASE_URL}/learning_outcome_matrix`)
     .then(({ data }) => {
       dispatch(getCurrentMatrixSuccess(data));
       dispatch(makeLocalMatrixCopy(data));

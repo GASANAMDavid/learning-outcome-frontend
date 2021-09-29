@@ -17,7 +17,7 @@ export const setVersionIdToBeDisplayed = (payload) => ({
 const getMatricesHistory = () => (dispatch) => {
   dispatch(getMatricesHistoryStart());
   return axios
-    .get('http://localhost:3000/history')
+    .get(`${process.env.REACT_APP_BASE_URL}/history`)
     .then(({ data }) => {
       dispatch(setVersionIdToBeDisplayed(data.matrices[0].id));
       dispatch(getMatricesHistorySuccess(data));

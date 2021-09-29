@@ -27,7 +27,7 @@ export const updateLocalMatrix = (payload) => (dispatch) => {
 export const updateDatabaseMatrix = (updates) => (dispatch) => {
   dispatch(setNewUpdateFlag(false));
   return axios
-    .put('http://localhost:3000/learning_outcome_matrix', updates)
+    .put(`${process.env.REACT_APP_BASE_URL}/learning_outcome_matrix`, updates)
     .then(() => {
       dispatch(updateDatabaseMatrixSuccess({ message: 'Updated successfully' }));
     })
