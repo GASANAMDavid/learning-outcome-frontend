@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axiosInstance from '../../helpers/api';
 import setSnackbar from './snackbar';
 
 const updateLocalMatrixSuccess = (payload) => ({
@@ -27,8 +27,8 @@ export const updateLocalMatrix = (payload) => (dispatch) => {
 
 export const updateDatabaseMatrix = (updates) => (dispatch) => {
   dispatch(setNewUpdateFlag(false));
-  return axios
-    .put(`${process.env.REACT_APP_BASE_URL}/learning_outcome_matrix`, updates)
+  return axiosInstance
+    .put('/learning_outcome_matrix', updates)
     .then(() => {
       dispatch(updateDatabaseMatrixSuccess({ message: 'Updated successfully' }));
     })

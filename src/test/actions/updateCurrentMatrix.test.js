@@ -2,11 +2,12 @@ import moxios from 'moxios';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { updateLocalMatrix, updateDatabaseMatrix } from '../../redux/actions/updateCurrentMatrix';
+import axiosInstance from '../../helpers/api';
 
 const mockStore = configureStore([thunk]);
 
 describe('updateCurrentMatrix', () => {
-  beforeEach(() => { moxios.install(); });
+  beforeEach(() => { moxios.install(axiosInstance); });
   afterEach(() => { moxios.uninstall(); });
 
   describe('Local store matrix', () => {

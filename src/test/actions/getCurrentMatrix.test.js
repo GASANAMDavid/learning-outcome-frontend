@@ -2,13 +2,14 @@ import moxios from 'moxios';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import getCurrentMatrix from '../../redux/actions/getCurrentMatrix';
+import axiosInstance from '../../helpers/api';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
 describe('getCurrentMatrix action', () => {
   beforeEach(() => {
-    moxios.install();
+    moxios.install(axiosInstance);
   });
 
   afterEach(() => moxios.uninstall());

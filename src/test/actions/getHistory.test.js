@@ -1,6 +1,7 @@
 import moxios from 'moxios';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
+import axiosInstance from '../../helpers/api';
 import getMatricesHistory, {
   setVersionIdToBeDisplayed,
 } from '../../redux/actions/getMatricesHistory';
@@ -10,7 +11,7 @@ const mockStore = configureStore(middlewares);
 
 describe('getHistory action', () => {
   beforeEach(() => {
-    moxios.install();
+    moxios.install(axiosInstance);
   });
 
   afterEach(() => moxios.uninstall());
