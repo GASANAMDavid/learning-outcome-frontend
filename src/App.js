@@ -9,13 +9,13 @@ const App = () => (
   <>
     <Snackbar />
     <Router>
-      <Dashboard>
-        <Switch>
-          <Route exact path="/" component={Home} />
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Dashboard>
           <Route exact path="/dashboard/matrix_table" component={CurrentMatrix} />
           <Route exact path="/dashboard/history" component={History} />
-        </Switch>
-      </Dashboard>
+        </Dashboard>
+      </Switch>
     </Router>
   </>
 );
