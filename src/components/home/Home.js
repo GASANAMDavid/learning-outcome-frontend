@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router';
 import './Home.css';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Container, Typography, TextField, Button, Box,
 } from '@material-ui/core';
@@ -7,6 +9,12 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import GoogleIcon from '@mui/icons-material/Google';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import { makeStyles } from '@material-ui/styles';
+import { setItem } from '../../helpers/localStorage';
+import Auth from '../../helpers/auth';
+import loginSuccess from '../../redux/actions/login';
+import createUser, { addUserInfo } from '../../redux/actions/createUser';
+
+const auth0Client = new Auth();
 
 const useStyles = makeStyles({
   input: {
@@ -28,9 +36,7 @@ const useStyles = makeStyles({
     letterSpacing: '1px',
     textTransform: 'uppercase',
     transition: 'transform 80ms ease-in',
-    '&:active': {
-      transform: 'scale(0.95)',
-    },
+    '&:active': { transform: 'scale(0.95)' },
     '&:focus': {
       outline: 'none',
     },
@@ -38,11 +44,44 @@ const useStyles = makeStyles({
       background: 'none',
     },
   },
-
 });
 
 const Home = () => {
   const [toggleRight, setToggleRight] = React.useState(false);
+  const history = useHistory();
+  const user = useSelector((state) => state.createUserReducer.user);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    auth0Client.handleAuthentication((error, authResult) => {
+      if (authResult && authResult.accessToken) {
+        setItem('accessToken', authResult.accessToken);
+        history.push('/dashboard/current_matrix');
+        dispatch(loginSuccess());
+      } else { console.log(error); }
+    });
+  }, []);
+
+  const handleSignIn = () => {
+    auth0Client.signIn(user, (error, authResult) => {
+      console.log(error, authResult);
+    });
+  };
+
+  const handleRegister = () => {
+    auth0Client.register(user, (error) => {
+      if (error) { console.log(user, error); } else { dispatch(createUser()); }
+    });
+  };
+
+  const handleChange = (textField) => (event) => {
+    const newUserInfo = {
+      ...user,
+      [textField]: event.target.value,
+    };
+
+    dispatch(addUserInfo(newUserInfo));
+  };
   const classes = useStyles();
 
   return (
@@ -52,7 +91,7 @@ const Home = () => {
 
           <div className="form-container sign-up-container">
             <form>
-              <Typography variant="h1">
+              <Typography variant="h4">
                 Create Account
               </Typography>
               <div className="social-container">
@@ -60,16 +99,44 @@ const Home = () => {
                 <div><GitHubIcon className="social" /></div>
                 <div><GoogleIcon className="social" /></div>
               </div>
-              <Typography variant="span">or use your email for registration</Typography>
-              <TextField className={classes.input} variant="outlined" label="Name" placeholder="Full name" />
-              <TextField className={classes.input} variant="outlined" label="Email" placeholder="Email" />
-              <TextField className={classes.input} variant="outlined" label="Password" type="password" placeholder="Password" />
-              <Button className={classes.button} variant="outlined">Sign Up</Button>
+              <Typography variant="h6">or use your email for registration</Typography>
+              <TextField
+                className={classes.input}
+                variant="outlined"
+                label="First Name"
+                onChange={handleChange('first_name')}
+              />
+              <TextField
+                className={classes.input}
+                variant="outlined"
+                label="First Name"
+                onChange={handleChange('last_name')}
+              />
+              <TextField
+                className={classes.input}
+                variant="outlined"
+                label="Email"
+                onChange={handleChange('email')}
+              />
+              <TextField
+                className={classes.input}
+                variant="outlined"
+                label="Password"
+                type="password"
+                onChange={handleChange('password')}
+              />
+              <Button
+                className={classes.button}
+                variant="outlined"
+                onClick={handleRegister}
+              >
+                Sign Up
+              </Button>
             </form>
           </div>
           <div className="form-container sign-in-container">
             <form>
-              <Typography variant="h1">
+              <Typography variant="h4">
                 Sign in
               </Typography>
               <div className="social-container">
@@ -77,29 +144,40 @@ const Home = () => {
                 <div><GitHubIcon className="social" onClick={() => console.log('Sign in')} /></div>
                 <div><GoogleIcon className="social" onClick={() => console.log('Sign in')} /></div>
               </div>
-              <Typography variant="span">or use your account</Typography>
-              <TextField className={classes.input} variant="outlined" label="Email" />
-              <TextField className={classes.input} variant="outlined" label="Password" type="password" />
-              <Typography variant="span">Forgot your password?</Typography>
-              <Button variant="outlined" className={classes.button}>Sign In</Button>
+              <Typography variant="h6">or use your account</Typography>
+              <TextField
+                className={classes.input}
+                variant="outlined"
+                label="Email"
+                onChange={handleChange('email')}
+              />
+              <TextField
+                className={classes.input}
+                variant="outlined"
+                label="Password"
+                type="password"
+                onChange={handleChange('password')}
+              />
+              <Typography variant="h6">Forgot your password?</Typography>
+              <Button variant="outlined" className={classes.button} onClick={handleSignIn}>Sign In</Button>
             </form>
           </div>
           <div className="overlay-container">
             <div className="overlay">
               <div className="overlay-panel overlay-left">
-                <Typography variant="h1">
+                <Typography variant="h5">
                   Welcome Back!
                 </Typography>
-                <Typography variant="p">
+                <Typography variant="h6">
                   To keep connected with us please login with your personal info
                 </Typography>
                 <Button variant="outlined" className={classes.button} id="signIn" onClick={() => setToggleRight(!toggleRight)}>Sign In</Button>
               </div>
               <div className="overlay-panel overlay-right">
-                <Typography variant="h2">
+                <Typography variant="h5">
                   {'Don\'t have an account yet?'}
                 </Typography>
-                <Typography variant="p">
+                <Typography variant="h6">
                   Please consider signing up.
                 </Typography>
                 <Button variant="outlined" className={classes.button} id="signUp" onClick={() => setToggleRight(!toggleRight)}>Sign Up</Button>
