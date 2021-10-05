@@ -7,6 +7,9 @@ import thunk from 'redux-thunk';
 import Dashboard from '../components/dashboard/Dashboard';
 import App from '../App';
 
+jest.mock('../helpers/auth');
+jest.mock('../helpers/localStorage');
+
 describe('App', () => {
   const state = {
     snackbarReducer: {

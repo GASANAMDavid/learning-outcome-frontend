@@ -1,8 +1,10 @@
 /* eslint-disable no-console */
 import React from 'react';
 import { shallow } from 'enzyme';
-
 import Header from '../../../components/dashboard/Header';
+
+jest.mock('../../../helpers/auth');
+jest.mock('../../../helpers/localStorage');
 
 describe(Header, () => {
   let wrapper;
