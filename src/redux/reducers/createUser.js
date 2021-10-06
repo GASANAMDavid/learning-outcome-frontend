@@ -14,7 +14,11 @@ const createUserReducer = (state = initialState, action) => {
       ...state,
       user: { ...state.user, ...action.payload },
     };
-
+  case 'REMOVE_USER_INFO':
+    return {
+      ...state,
+      user: {},
+    };
   default:
     return state;
   }
