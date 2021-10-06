@@ -5,6 +5,7 @@ import getMatricesHistoryReducer from './getMatricesHistory';
 import setVersionIdToBeDisplayedReducer from './setVersionIDToBeDisplayed';
 import snackbarReducer from './snackbar';
 import createUserReducer from './createUser';
+import isLoggedInReducer from './isLoggedIn';
 
 export default combineReducers({
   getCurrentMatrixReducer,
@@ -13,4 +14,5 @@ export default combineReducers({
   setVersionIdToBeDisplayedReducer,
   snackbarReducer,
   createUserReducer,
+  isLoggedInReducer,
 });

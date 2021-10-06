@@ -11,7 +11,9 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import { makeStyles } from '@mui/styles';
 import { setItem } from '../../helpers/localStorage';
 import Auth from '../../helpers/auth';
+import setSnackbar from '../../redux/actions/snackbar';
 import createUser, { addUserInfo } from '../../redux/actions/createUser';
+import loginSuccess from '../../redux/actions/login';
 
 const auth0Client = new Auth();
 
@@ -55,6 +57,7 @@ const Home = () => {
     auth0Client.handleAuthentication((error, authResult) => {
       if (authResult && authResult.accessToken) {
         setItem('accessToken', authResult.accessToken);
+        dispatch(loginSuccess());
         history.push('/dashboard/current_matrix');
       } else { console.log(error); }
     });
@@ -68,7 +71,18 @@ const Home = () => {
 
   const handleRegister = () => {
     auth0Client.register(user, (error) => {
-      if (error) { console.log(user, error); } else { dispatch(createUser()); }
+      if (error) {
+        console.log(user, error);
+      } else {
+        dispatch(setSnackbar(
+          {
+            snackbarOpen: true,
+            snackbarType: 'success',
+            snackbarMessage: 'Successfuly created an account',
+          },
+        ));
+        dispatch(createUser());
+      }
     });
   };
 

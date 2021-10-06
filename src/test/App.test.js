@@ -17,6 +17,11 @@ describe('App', () => {
       snackbarMessage: '',
       snackbarType: 'success',
     },
+    isLoggedInReducer: {
+      user: {
+        authenticated: true,
+      },
+    },
     getCurrentMatrixReducer: {
       matrix: {
         data: [{
@@ -46,10 +51,9 @@ describe('App', () => {
   it('renders dashboard component for /dashboard path', () => {
     const wrapper = mount(
       <Provider store={store}>
-        <MemoryRouter initialEntries={['/dashboard']}>
+        <MemoryRouter initialEntries={['/dashboard/current_matrix']}>
           <App />
         </MemoryRouter>
-        ,
       </Provider>,
     );
     expect(wrapper.find(Dashboard)).toHaveLength(1);
