@@ -6,6 +6,8 @@ import History from './components/dashboard/History';
 import Snackbar from './components/alert/Snackbar';
 import PrivateRoute from './components/private-route/PrivateRoute';
 
+console.log('Hello from the other side');
+
 const App = () => (
   <>
     <Snackbar />
