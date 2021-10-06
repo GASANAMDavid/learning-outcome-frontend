@@ -1,10 +1,9 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Route, Redirect } from 'react-router';
-import { getItem } from '../../helpers/localStorage';
 
 const PrivateRoute = ({ children, ...rest }) => {
-  console.log('Hello');
-  const isAuthenticated = getItem('accessToken') !== null;
+  const isAuthenticated = useSelector((state) => state.isLoggedInreducer.user.authenticated);
 
   if (isAuthenticated) {
     // eslint-disable-next-line react/jsx-props-no-spreading
