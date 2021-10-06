@@ -11,7 +11,6 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import { makeStyles } from '@material-ui/styles';
 import { setItem } from '../../helpers/localStorage';
 import Auth from '../../helpers/auth';
-import loginSuccess from '../../redux/actions/login';
 import createUser, { addUserInfo } from '../../redux/actions/createUser';
 
 const auth0Client = new Auth();
@@ -57,7 +56,6 @@ const Home = () => {
       if (authResult && authResult.accessToken) {
         setItem('accessToken', authResult.accessToken);
         history.push('/dashboard/current_matrix');
-        dispatch(loginSuccess());
       } else { console.log(error); }
     });
   }, []);
