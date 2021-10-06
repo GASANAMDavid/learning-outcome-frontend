@@ -12,6 +12,7 @@ import { makeStyles } from '@mui/styles';
 import { setItem } from '../../helpers/localStorage';
 import Auth from '../../helpers/auth';
 import createUser, { addUserInfo } from '../../redux/actions/createUser';
+import loginSuccess from '../../redux/actions/login';
 
 const auth0Client = new Auth();
 
@@ -55,6 +56,7 @@ const Home = () => {
     auth0Client.handleAuthentication((error, authResult) => {
       if (authResult && authResult.accessToken) {
         setItem('accessToken', authResult.accessToken);
+        dispatch(loginSuccess());
         history.push('/dashboard/current_matrix');
       } else { console.log(error); }
     });
