@@ -9,6 +9,10 @@ const createUserStart = () => (
   }
 );
 
+const removeUserInfo = () => ({
+  type: 'REMOVE_USER_INFO',
+});
+
 export const addUserInfo = (payload) => (
   {
     type: 'ADD_USER_INFO',
@@ -24,8 +28,9 @@ const createUser = () => (dispatch) => {
     email: existingUser.email,
   };
   dispatch(createUserStart());
-  axiosInstance.post('/user', body)
+  return axiosInstance.post('/user', body)
     .then(({ data }) => {
+      dispatch(removeUserInfo());
       dispatch(setSnackbar(data.message));
       new Auth().signIn({ email: existingUser.email, password: existingUser.password });
     })
