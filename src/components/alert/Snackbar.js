@@ -1,21 +1,14 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Snackbar from '@material-ui/core/Snackbar';
-import Alert from '@material-ui/lab/Alert';
-import { makeStyles } from '@material-ui/core/styles';
+import Snackbar from '@mui/material/Snackbar';
+import Stack from '@mui/material/Stack';
+import MuiAlert from '@mui/material/Alert';
 import setSnackbar from '../../redux/actions/snackbar';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-    '& > * + *': {
-      marginTop: theme.spacing(2),
-    },
-  },
-}));
+// eslint-disable-next-line react/jsx-props-no-spreading
+const Alert = React.forwardRef((props, ref) => <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />);
 
 const CustomizedSnackbars = () => {
-  const classes = useStyles();
   const dispatch = useDispatch();
   const store = useSelector((state) => state.snackbarReducer);
 
@@ -27,22 +20,25 @@ const CustomizedSnackbars = () => {
   };
 
   return (
-    <div className={classes.root}>
+    <Stack
+      spacing={2}
+      sx={{ width: '100%' }}
+    >
+
       <Snackbar
         open={store.snackbarOpen}
         autoHideDuration={3000}
         onClose={handleClose}
       >
         <Alert
-          elevation={6}
-          variant="filled"
           onClose={handleClose}
-          color={store.snackbarType}
+          severity={store.snackbarType}
+          sx={{ width: '100%' }}
         >
           {store.snackbarMessage}
         </Alert>
       </Snackbar>
-    </div>
+    </Stack>
   );
 };
 

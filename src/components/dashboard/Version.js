@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import {
   Card, CardContent, CardHeader, Fab,
-} from '@material-ui/core';
+} from '@mui/material';
 import { setVersionIdToBeDisplayed } from '../../redux/actions/getMatricesHistory';
 
 const Version = ({ date, title, versionId }) => {

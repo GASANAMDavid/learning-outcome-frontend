@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axiosInstance from '../../helpers/api';
 import setSnackbar from './snackbar';
 
 const getMatricesHistoryStart = () => ({
@@ -16,8 +16,8 @@ export const setVersionIdToBeDisplayed = (payload) => ({
 
 const getMatricesHistory = () => (dispatch) => {
   dispatch(getMatricesHistoryStart());
-  return axios
-    .get(`${process.env.REACT_APP_BASE_URL}/history`)
+  return axiosInstance
+    .get('/history')
     .then(({ data }) => {
       dispatch(setVersionIdToBeDisplayed(data.matrices[0].id));
       dispatch(getMatricesHistorySuccess(data));

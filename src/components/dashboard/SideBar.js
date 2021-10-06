@@ -2,9 +2,9 @@ import React from 'react';
 import { useHistory, useLocation } from 'react-router';
 import {
   List, ListItem, ListItemText,
-} from '@material-ui/core';
+} from '@mui/material';
 
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles({
   active: {
@@ -22,7 +22,7 @@ const SideBar = () => {
       <List dense>
         <ListItem
           button
-          onClick={() => history.push('/dashboard/matrix_table')}
+          onClick={() => history.push('/dashboard/current_matrix')}
           className={location.pathname === '/dashboard/matrix_table' ? classes.active : null}
         >
           <ListItemText primary="Current Matrix" />

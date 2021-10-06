@@ -4,6 +4,7 @@ import updateMatrixReducer from './updateMatrix';
 import getMatricesHistoryReducer from './getMatricesHistory';
 import setVersionIdToBeDisplayedReducer from './setVersionIDToBeDisplayed';
 import snackbarReducer from './snackbar';
+import createUserReducer from './createUser';
 
 export default combineReducers({
   getCurrentMatrixReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   getMatricesHistoryReducer,
   setVersionIdToBeDisplayedReducer,
   snackbarReducer,
+  createUserReducer,
 });

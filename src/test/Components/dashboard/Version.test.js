@@ -3,7 +3,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import Fab from '@material-ui/core/Fab';
+import Fab from '@mui/material/Fab';
 import Version from '../../../components/dashboard/Version';
 
 describe(Version, () => {

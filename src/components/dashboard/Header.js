@@ -1,14 +1,15 @@
 import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import { Box, ListItemText } from '@material-ui/core';
-import Menu from '@material-ui/core/Menu';
-import Button from '@material-ui/core/Button';
-import PersonIcon from '@material-ui/icons/Person';
-import SettingsIcon from '@material-ui/icons/Settings';
-import Typography from '@material-ui/core/Typography';
-import makeStyles from '@material-ui/styles/makeStyles';
-import AppBar from '@material-ui/core/AppBar';
+import Avatar from '@mui/material/Avatar';
+import {
+  Box, ListItemText, Divider, Menu, Button, Typography, AppBar,
+} from '@mui/material';
+import PersonIcon from '@mui/icons-material/Person';
+import SettingsIcon from '@mui/icons-material/Settings';
+import { makeStyles } from '@mui/styles';
 import profilePhoto from '../assets/grad_cap.jpeg';
+import Auth from '../../helpers/auth';
+
+const auth0Client = new Auth();
 
 const useStyles = makeStyles({
   root: {
@@ -44,6 +45,11 @@ const Header = () => {
     setAnchorEl(null);
   };
 
+  const handleLogout = () => {
+    auth0Client.logout();
+    handleClose();
+  };
+
   return (
     <AppBar position="static">
       <Button className={classes.menuButton} id="user-info">
@@ -67,6 +73,7 @@ const Header = () => {
           <Typography variant="subtitle2" component="h6" id="user-name">David Gasana Manzi</Typography>
           <Typography variant="subtitle2" component="h6" id="occupation">Software Engineer</Typography>
         </Box>
+        <Divider />
         <Box>
           <Button href="/dashboard" aria-label="Profile" className={classes.menu_items} id="profile">
             <PersonIcon />
@@ -76,6 +83,10 @@ const Header = () => {
             <SettingsIcon />
             <ListItemText className={classes.menuItemText}>Settings</ListItemText>
           </Button>
+        </Box>
+        <Divider />
+        <Box>
+          <Button aria-label="logout" onClick={handleLogout}>Logout</Button>
         </Box>
       </Menu>
     </AppBar>

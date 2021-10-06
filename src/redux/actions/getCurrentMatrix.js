@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axiosInstance from '../../helpers/api';
 import setSnackbar from './snackbar';
 
 export const getCurrentMatrixSuccess = (payload) => ({
@@ -19,8 +19,8 @@ export const makeLocalMatrixCopy = (payload) => ({
 
 const getCurrentMatrix = () => (dispatch) => {
   dispatch(getCurrentMatrixStart());
-  return axios
-    .get(`${process.env.REACT_APP_BASE_URL}/learning_outcome_matrix`)
+  return axiosInstance
+    .get('/learning_outcome_matrix')
     .then(({ data }) => {
       dispatch(getCurrentMatrixSuccess(data));
       dispatch(makeLocalMatrixCopy(data));
