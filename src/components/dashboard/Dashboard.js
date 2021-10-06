@@ -1,6 +1,6 @@
 import React from 'react';
-import { Drawer, Typography, Container } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
+import { Drawer, Typography, Container } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import SideBar from './SideBar';
 import Header from './Header';
 

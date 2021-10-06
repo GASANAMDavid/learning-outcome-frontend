@@ -1,5 +1,5 @@
 import { shallow } from 'enzyme';
-import Popover from '@material-ui/core/Popover';
+import Popover from '@mui/material/Popover';
 import Help from '../../../components/Helpers/Help';
 
 describe(Help, () => {

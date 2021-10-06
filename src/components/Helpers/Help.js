@@ -1,6 +1,6 @@
 import React from 'react';
-import { Popover, Typography, Divider } from '@material-ui/core';
-import HelpIcon from '@material-ui/icons/Help';
+import { Popover, Typography, Divider } from '@mui/material';
+import HelpIcon from '@mui/icons-material/Help';
 
 const Help = ({ levels }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);

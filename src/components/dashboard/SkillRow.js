@@ -1,9 +1,9 @@
 
 import React from 'react';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   MenuItem, Menu, Button, TableRow, TableCell,
-} from '@material-ui/core';
+} from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { updateLocalMatrix } from '../../redux/actions/updateCurrentMatrix';
 

@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import _ from 'lodash';
-import { Button } from '@material-ui/core';
+import { Button } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles';
 import SkeletonTable from './SkeletonTable';
 import MatrixTable from './MatrixTable';
 

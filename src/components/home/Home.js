@@ -4,11 +4,11 @@ import './Home.css';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Container, Typography, TextField, Button, Box,
-} from '@material-ui/core';
+} from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import GoogleIcon from '@mui/icons-material/Google';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@mui/styles';
 import { setItem } from '../../helpers/localStorage';
 import Auth from '../../helpers/auth';
 import createUser, { addUserInfo } from '../../redux/actions/createUser';

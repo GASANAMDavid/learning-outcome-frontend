@@ -1,13 +1,11 @@
 import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import { Box, ListItemText, Divider } from '@material-ui/core';
-import Menu from '@material-ui/core/Menu';
-import Button from '@material-ui/core/Button';
-import PersonIcon from '@material-ui/icons/Person';
-import SettingsIcon from '@material-ui/icons/Settings';
-import Typography from '@material-ui/core/Typography';
-import makeStyles from '@material-ui/styles/makeStyles';
-import AppBar from '@material-ui/core/AppBar';
+import Avatar from '@mui/material/Avatar';
+import {
+  Box, ListItemText, Divider, Menu, Button, Typography, AppBar,
+} from '@mui/material';
+import PersonIcon from '@mui/icons-material/Person';
+import SettingsIcon from '@mui/icons-material/Settings';
+import { makeStyles } from '@mui/styles';
 import profilePhoto from '../assets/grad_cap.jpeg';
 import Auth from '../../helpers/auth';
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import {
   MenuItem, Button, Table, TableBody,
-} from '@material-ui/core';
+} from '@mui/material';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';

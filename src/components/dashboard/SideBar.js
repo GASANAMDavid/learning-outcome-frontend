@@ -2,9 +2,9 @@ import React from 'react';
 import { useHistory, useLocation } from 'react-router';
 import {
   List, ListItem, ListItemText,
-} from '@material-ui/core';
+} from '@mui/material';
 
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles({
   active: {
