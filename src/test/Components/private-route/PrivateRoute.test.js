@@ -12,7 +12,7 @@ describe(PrivateRoute, () => {
     it('redirects to home page', () => {
       const mockStore = configureMockStore([thunk]);
       const state = {
-        isLoggedInreducer: {
+        isLoggedInReducer: {
           user: {
             authenticated: false,
           },
@@ -38,7 +38,7 @@ describe(PrivateRoute, () => {
     it('renders children', () => {
       const mockStore = configureMockStore([thunk]);
       const state = {
-        isLoggedInreducer: {
+        isLoggedInReducer: {
           user: {
             authenticated: true,
           },
