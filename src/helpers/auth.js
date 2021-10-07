@@ -44,7 +44,7 @@ export default class Auth {
     removeItem('accessToken');
     this.auth0.logout({
       clientID: process.env.REACT_APP_AUTH0_CLIENTID,
-      returnTo: 'http://localhost:3001',
+      returnTo: process.env.REACT_APP_AUTH0_CALLBACK_URL,
     });
   }
 
