@@ -6,7 +6,7 @@ import {
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateUserProfile } from '../../../redux/actions/getCurrentUser';
+import saveProfileUpdates, { updateUserProfile } from '../../../redux/actions/updateUserProfile';
 
 const useStyles = makeStyles({
   root: {
@@ -55,6 +55,9 @@ const Profile = () => {
     };
     dispatch(updateUserProfile(updates));
   };
+
+  const handleSaveChanges = () => dispatch(saveProfileUpdates());
+
   return (
     <Card variant="outlined" className={classes.root}>
       <CardHeader title="Profile" />
@@ -71,7 +74,7 @@ const Profile = () => {
             error={isError}
             label="first_name"
             variant="outlined"
-            id="outlined-error-helper-text"
+            id="first_name"
             placeholder="first name *"
             value={profile.first_name}
             focused
@@ -123,7 +126,7 @@ const Profile = () => {
         </Box>
         <Divider />
         <Box className={classes.saveChanges}>
-          <Button className={classes.saveBtn}> Save Changes</Button>
+          <Button className={classes.saveBtn} onClick={handleSaveChanges} id="save-changes"> Save Changes</Button>
         </Box>
       </CardContent>
     </Card>
