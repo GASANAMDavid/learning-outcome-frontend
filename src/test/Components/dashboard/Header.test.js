@@ -1,42 +1,40 @@
-/* eslint-disable no-console */
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import * as redux from 'react-redux';
 import Header from '../../../components/dashboard/Header';
 
 jest.mock('../../../helpers/auth');
 jest.mock('../../../helpers/localStorage');
 
-describe(Header, () => {
-  let wrapper;
+const mockStore = configureStore([thunk]);
 
-  beforeEach(() => {
-    wrapper = shallow(<Header />);
+describe(Header, () => {
+  const useDispatchSpy = jest.spyOn(redux, 'useDispatch');
+  const store = mockStore({
+    currentUserProfileReducer: {
+      profile: {
+        first_name: 'Jane',
+        last_name: 'Doe',
+        email: 'doe@example.com',
+        role_id: 1,
+      },
+    },
   });
 
-  describe('Profile Picture button', () => {
-    beforeEach(() => {
-      const button = wrapper.find('#user-info');
-      button.simulate('click');
-    });
-    it('has username', () => {
-      expect(wrapper.find('#user-name').text()).toContain('David Gasana Manzi');
-    });
-    it('has occupation', () => {
-      expect(wrapper.find('#occupation').text()).toContain('Software Engineer');
-    });
+  beforeEach(() => {
+    const mockDispatchFn = jest.fn();
+    useDispatchSpy.mockReturnValue(mockDispatchFn);
+  });
 
-    describe('Profiles button', () => {
-      it('on click, renders profile page', () => {
-        wrapper.find('#profile').simulate('click');
-        expect('#').toEqual('#');
-      });
-    });
+  afterEach(() => {
+    useDispatchSpy.mockClear();
+  });
 
-    describe('Settings button', () => {
-      it('on click, renders settings page', () => {
-        wrapper.find('#settings').simulate('click');
-        expect('#').toEqual('#');
-      });
-    });
+  it('renders the dropdown component', () => {
+    const wrapper = mount(<Provider store={store}><Header /></Provider>);
+    expect(wrapper.find('Dropdown')).toHaveLength(1);
   });
 });

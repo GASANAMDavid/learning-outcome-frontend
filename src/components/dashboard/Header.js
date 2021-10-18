@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Avatar from '@mui/material/Avatar';
-import {
-  Box, ListItemText, Divider, Menu, Button, Typography, AppBar,
-} from '@mui/material';
-import PersonIcon from '@mui/icons-material/Person';
-import SettingsIcon from '@mui/icons-material/Settings';
+import { Menu, Button, AppBar } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import profilePhoto from '../assets/grad_cap.jpeg';
+import { logout } from '../../redux/actions/login';
+import getCurrentUser from '../../redux/actions/getCurrentUser';
+import Dropdown from './Dropdown';
+
 import Auth from '../../helpers/auth';
 
 const auth0Client = new Auth();
@@ -14,29 +15,28 @@ const auth0Client = new Auth();
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
-  },
-  menu_items: {
-    display: 'flex',
+    marginTop: 0,
+    height: '70px',
+    marginBottom: '12px',
+    backgroundColor: '#4a938f',
   },
   menuButton: {
     display: 'flex',
     justifyContent: 'flex-end',
-  },
-  menuItemText: {
-    paddingLeft: '4px',
-    textTransform: 'none',
-  },
-  avatar: {
-    border: '8px solid white',
-  },
-  userProfile: {
-    padding: '8px',
+    marginTop: '10px',
   },
 });
 
 const Header = () => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const profile = useSelector((state) => state.currentUserProfileReducer.profile);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCurrentUser());
+  }, [dispatch]);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -47,19 +47,23 @@ const Header = () => {
 
   const handleLogout = () => {
     auth0Client.logout();
+    dispatch(logout());
     handleClose();
   };
 
   return (
-    <AppBar position="static">
-      <Button className={classes.menuButton} id="user-info">
+    <AppBar position="static" className={classes.root}>
+      <Button
+        className={classes.menuButton}
+        id="user-info"
+      >
         <Avatar
           className={classes.avatar}
           alt="David"
           src={profilePhoto}
-          onClick={handleClick}
           aria-controls="menu-items"
           aria-haspopup="true"
+          onClick={handleClick}
         />
       </Button>
       <Menu
@@ -69,25 +73,7 @@ const Header = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <Box component="div" className={classes.userProfile}>
-          <Typography variant="subtitle2" component="h6" id="user-name">David Gasana Manzi</Typography>
-          <Typography variant="subtitle2" component="h6" id="occupation">Software Engineer</Typography>
-        </Box>
-        <Divider />
-        <Box>
-          <Button href="/dashboard" aria-label="Profile" className={classes.menu_items} id="profile">
-            <PersonIcon />
-            <ListItemText className={classes.menuItemText}>Profile</ListItemText>
-          </Button>
-          <Button href="/dashboard" aria-label="Settings" className={classes.menu_items} id="settings">
-            <SettingsIcon />
-            <ListItemText className={classes.menuItemText}>Settings</ListItemText>
-          </Button>
-        </Box>
-        <Divider />
-        <Box>
-          <Button aria-label="logout" onClick={handleLogout}>Logout</Button>
-        </Box>
+        <Dropdown handleLogout={handleLogout} profile={profile} />
       </Menu>
     </AppBar>
   );

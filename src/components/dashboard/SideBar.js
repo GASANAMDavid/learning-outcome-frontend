@@ -34,6 +34,13 @@ const SideBar = () => {
         >
           <ListItemText primary="History" />
         </ListItem>
+        <ListItem
+          button
+          onClick={() => history.push('/dashboard/account')}
+          className={location.pathname === '/dashboard/account' ? classes.active : null}
+        >
+          <ListItemText primary="Account" />
+        </ListItem>
       </List>
     </div>
   );
