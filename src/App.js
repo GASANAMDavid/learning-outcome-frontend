@@ -5,8 +5,7 @@ import CurrentMatrix from './components/dashboard/CurrentMatrix';
 import History from './components/dashboard/History';
 import Snackbar from './components/alert/Snackbar';
 import PrivateRoute from './components/private-route/PrivateRoute';
-
-console.log('Hello from the other side');
+import Profile from './components/dashboard/account/Profile';
 
 const App = () => (
   <>
@@ -22,6 +21,11 @@ const App = () => (
         <PrivateRoute path="/dashboard/history">
           <Dashboard>
             <History />
+          </Dashboard>
+        </PrivateRoute>
+        <PrivateRoute path="/dashboard/account">
+          <Dashboard>
+            <Profile />
           </Dashboard>
         </PrivateRoute>
       </Switch>

@@ -4,13 +4,14 @@ import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+import * as redux from 'react-redux';
 import Dashboard from '../components/dashboard/Dashboard';
 import App from '../App';
 
 jest.mock('../helpers/auth');
 jest.mock('../helpers/localStorage');
 
-describe('App', () => {
+describe(App, () => {
   const state = {
     snackbarReducer: {
       snackbarOpen: false,
@@ -44,9 +45,22 @@ describe('App', () => {
         errors: '',
       },
     },
+    currentUserProfileReducer: {
+      profile: { first_name: '', last_name: '', email: '' },
+    },
   };
   const mockStore = configureStore([thunk]);
   const store = mockStore(state);
+  const useDispatchSpy = jest.spyOn(redux, 'useDispatch');
+
+  beforeEach(() => {
+    const mockDispatchFn = jest.fn();
+    useDispatchSpy.mockReturnValue(mockDispatchFn);
+  });
+
+  afterEach(() => {
+    useDispatchSpy.mockClear();
+  });
 
   it('renders dashboard component for /dashboard path', () => {
     const wrapper = mount(

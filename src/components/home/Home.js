@@ -121,7 +121,7 @@ const Home = () => {
               <TextField
                 className={classes.input}
                 variant="outlined"
-                label="First Name"
+                label="Last Name"
                 onChange={handleChange('last_name')}
               />
               <TextField

@@ -6,6 +6,7 @@ import setVersionIdToBeDisplayedReducer from './setVersionIDToBeDisplayed';
 import snackbarReducer from './snackbar';
 import createUserReducer from './createUser';
 import isLoggedInReducer from './isLoggedIn';
+import currentUserProfileReducer from './currentUserProfile';
 
 export default combineReducers({
   getCurrentMatrixReducer,
@@ -15,4 +16,5 @@ export default combineReducers({
   snackbarReducer,
   createUserReducer,
   isLoggedInReducer,
+  currentUserProfileReducer,
 });
