@@ -2,7 +2,7 @@ import moxios from 'moxios';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import axiosInstance from '../../helpers/api';
-import getCurrentUser, { updateUserProfile } from '../../redux/actions/getCurrentUser';
+import getCurrentUser from '../../redux/actions/getCurrentUser';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -43,19 +43,5 @@ describe(getCurrentUser, () => {
         ];
         expect(store.getActions()).toEqual(expectedActions);
       });
-  });
-
-  it('has an action to update the user profile', () => {
-    const store = mockStore({});
-    const expectedAction = [
-      {
-        type: 'UPDATE_USER_PROFILE',
-        payload: {
-          first_name: 'Jane',
-        },
-      },
-    ];
-    store.dispatch(updateUserProfile({ first_name: 'Jane' }));
-    expect(store.getActions()).toEqual(expectedAction);
   });
 });

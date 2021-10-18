@@ -9,11 +9,6 @@ const getCurrentUserSuccess = (payload) => ({
   payload,
 });
 
-export const updateUserProfile = (payload) => ({
-  type: 'UPDATE_USER_PROFILE',
-  payload,
-});
-
 const getCurrentUser = () => (dispatch) => {
   dispatch(getCurrentStart());
   return axiosInstance.get('/user')
