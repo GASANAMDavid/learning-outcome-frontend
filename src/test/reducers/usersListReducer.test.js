@@ -35,4 +35,29 @@ describe(usersListReducer, () => {
       }],
     });
   });
+
+  it('removes a user from userList', () => {
+    const userId = 1;
+    const currentState = {
+      users: [
+        {
+          id: 1, first_name: '', last_name: '', email: '',
+        },
+        {
+          id: 2, first_name: '', last_name: '', email: '',
+        },
+      ],
+    };
+
+    const action = {
+      type: 'REMOVE_USER_FROM_LIST',
+      payload: userId,
+    };
+
+    expect(usersListReducer(currentState, action)).toEqual({
+      users: [{
+        id: 2, first_name: '', last_name: '', email: '',
+      }],
+    });
+  });
 });
