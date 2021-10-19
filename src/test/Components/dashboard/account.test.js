@@ -3,12 +3,12 @@ import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import Profile from '../../../components/dashboard/account/Profile';
+import Account from '../../../components/dashboard/user-management/account';
 
 jest.mock('../../../helpers/auth');
 jest.mock('../../../helpers/localStorage');
 
-describe(Profile, () => {
+describe(Account, () => {
   const mockStore = configureStore([thunk]);
   let wrapper; let store;
 
@@ -18,7 +18,7 @@ describe(Profile, () => {
         profile: { first_name: 'David', last_name: 'Manzi', email: '' },
       },
     });
-    wrapper = mount(<Provider store={store}><Profile /></Provider>);
+    wrapper = mount(<Provider store={store}><Account /></Provider>);
   });
 
   it('updates the the profile attribute', () => {

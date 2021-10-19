@@ -37,7 +37,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Profile = () => {
+const Account = () => {
   const [role, setRole] = React.useState(10);
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.currentUserProfileReducer.profile);
@@ -133,4 +133,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Account;
