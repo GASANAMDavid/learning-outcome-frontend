@@ -5,6 +5,7 @@ import {
 } from '@mui/material';
 
 import { makeStyles } from '@mui/styles';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles({
   active: {
@@ -16,6 +17,8 @@ const SideBar = () => {
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
+
+  const isAdmin = useSelector((state) => state.currentUserProfileReducer.profile.role.admin);
 
   return (
     <div>
@@ -41,6 +44,16 @@ const SideBar = () => {
         >
           <ListItemText primary="Account" />
         </ListItem>
+
+        {isAdmin && (
+          <ListItem
+            button
+            onClick={() => history.push('/dashboard/users')}
+            className={location.pathname === '/dashboard/users' ? classes.active : null}
+          >
+            <ListItemText primary="Users" />
+          </ListItem>
+        )}
       </List>
     </div>
   );

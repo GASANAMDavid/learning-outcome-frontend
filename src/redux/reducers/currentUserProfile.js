@@ -1,6 +1,8 @@
 const initialState = {
   isLoading: false,
-  profile: { first_name: '', last_name: '', email: '' },
+  profile: {
+    first_name: '', last_name: '', email: '', role: { id: '', admin: true },
+  },
 };
 const currentUserProfileReducer = (state = initialState, action) => {
   switch (action.type) {

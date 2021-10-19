@@ -46,7 +46,9 @@ describe(App, () => {
       },
     },
     currentUserProfileReducer: {
-      profile: { first_name: '', last_name: '', email: '' },
+      profile: {
+        first_name: '', last_name: '', email: '', role: { id: 1, admin: true },
+      },
     },
   };
   const mockStore = configureStore([thunk]);
