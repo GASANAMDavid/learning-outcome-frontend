@@ -8,6 +8,7 @@ import createUserReducer from './createUser';
 import isLoggedInReducer from './isLoggedIn';
 import currentUserProfileReducer from './currentUserProfile';
 import updateUserProfileReducer from './updateUserProfile';
+import usersListReducer from './usersList';
 
 export default combineReducers({
   getCurrentMatrixReducer,
@@ -19,4 +20,5 @@ export default combineReducers({
   isLoggedInReducer,
   currentUserProfileReducer,
   updateUserProfileReducer,
+  usersListReducer,
 });
