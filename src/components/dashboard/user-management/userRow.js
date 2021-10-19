@@ -2,7 +2,7 @@ import React from 'react';
 import { TableRow, TableCell, Button } from '@mui/material';
 import { useHistory } from 'react-router';
 
-const userRow = ({ row }) => {
+const userRow = ({ row, handleDelete }) => {
   const history = useHistory();
   return (
     <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
@@ -20,7 +20,7 @@ const userRow = ({ row }) => {
       </TableCell>
       <TableCell>
         <Button variant="outlined" color="primary" onClick={() => history.push('/dashboard/edit')}>edit</Button>
-        <Button variant="outlined" color="error">delete</Button>
+        <Button variant="outlined" color="error" onClick={handleDelete} className={`deleteBtn-${row.id}`}>delete</Button>
       </TableCell>
     </TableRow>
   );

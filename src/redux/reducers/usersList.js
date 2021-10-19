@@ -21,6 +21,11 @@ const usersListReducer = (state = initialState, action) => {
       ...state,
       users: action.payload.users,
     };
+  case 'REMOVE_USER_FROM_LIST':
+    return {
+      ...state,
+      users: state.users.filter((user) => user.id !== action.payload),
+    };
   default:
     return state;
   }

@@ -11,6 +11,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { useSelector, useDispatch } from 'react-redux';
 import getUsers from '../../../redux/actions/getUsers';
+import deleteUser from '../../../redux/actions/deleteUser';
 import UserRow from './userRow';
 
 const columns = [
@@ -41,6 +42,10 @@ const Users = () => {
     setPage(0);
   };
 
+  const handleDelete = (userId) => {
+    dispatch(deleteUser(userId));
+  };
+
   return (
     <>
       <Button variant="contained" color="secondary" onClick={() => history.push('/dashboard/create')}>new user</Button>
@@ -64,7 +69,7 @@ const Users = () => {
               {users
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => (
-                  <UserRow key={row.id} row={row} />
+                  <UserRow key={row.id} row={row} handleDelete={() => handleDelete(row.id)} />
                 ))}
             </TableBody>
           </Table>
