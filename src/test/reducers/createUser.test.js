@@ -2,7 +2,7 @@ import createUserReducer from '../../redux/reducers/createUser';
 
 describe(createUserReducer, () => {
   const initialState = {
-    user: {},
+    user: { role: { id: '' } },
   };
   it('should return initialState', () => {
     expect(createUserReducer(undefined, {})).toEqual(initialState);
@@ -11,10 +11,10 @@ describe(createUserReducer, () => {
   it('adds info to the user state', () => {
     const action = {
       type: 'ADD_USER_INFO',
-      payload: { name: 'John' },
+      payload: { first_name: 'John' },
     };
     const expectedState = {
-      user: { name: 'John' },
+      user: { first_name: 'John', role: { id: '' } },
     };
     expect(createUserReducer(initialState, action)).toEqual(expectedState);
   });

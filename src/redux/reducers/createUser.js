@@ -1,5 +1,5 @@
 const initialState = {
-  user: {},
+  user: { role: { id: '' } },
 };
 
 const createUserReducer = (state = initialState, action) => {
@@ -17,7 +17,7 @@ const createUserReducer = (state = initialState, action) => {
   case 'REMOVE_USER_INFO':
     return {
       ...state,
-      user: {},
+      user: initialState.user,
     };
   default:
     return state;
