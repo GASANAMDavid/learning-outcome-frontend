@@ -7,6 +7,8 @@ import Snackbar from './components/alert/Snackbar';
 import PrivateRoute from './components/private-route/PrivateRoute';
 import Account from './components/dashboard/user-management/account';
 import Users from './components/dashboard/user-management/users';
+import Edit from './components/dashboard/user-management/edit';
+import CreateUser from './components/dashboard/user-management/create';
 
 const App = () => (
   <>
@@ -32,6 +34,16 @@ const App = () => (
         <PrivateRoute path="/dashboard/users">
           <Dashboard>
             <Users />
+          </Dashboard>
+        </PrivateRoute>
+        <PrivateRoute path="/dashboard/edit">
+          <Dashboard>
+            <Edit />
+          </Dashboard>
+        </PrivateRoute>
+        <PrivateRoute path="/dashboard/create">
+          <Dashboard>
+            <CreateUser />
           </Dashboard>
         </PrivateRoute>
       </Switch>

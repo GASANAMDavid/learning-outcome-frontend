@@ -10,8 +10,8 @@ describe('History component', () => {
 
   describe('Before fetching histories from the server', () => {
     const store = mockStore({
-      setVersionIdToBeDisplayedReducer: {
-        versionId: 2,
+      versionToBeDisplayedReducer: {
+        id: 2,
       },
       getMatricesHistoryReducer: {
         matrices: [],
@@ -30,8 +30,8 @@ describe('History component', () => {
 
   describe('After fetching histories from the server', () => {
     const store = mockStore({
-      setVersionIdToBeDisplayedReducer: {
-        versionId: 2,
+      versionToBeDisplayedReducer: {
+        id: 2,
       },
       getMatricesHistoryReducer: {
         matrices: [{

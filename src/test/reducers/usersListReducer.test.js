@@ -9,7 +9,7 @@ describe(usersListReducer, () => {
       id: 1,
       last_name: '',
       role: {
-        id: 1,
+        id: '',
         name: '',
       },
     }],

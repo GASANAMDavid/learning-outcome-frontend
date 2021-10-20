@@ -22,7 +22,7 @@ const useStyles = makeStyles({
   },
 });
 
-const MatrixTable = ({ rows, skillLevelOptions }) => {
+const MatrixTable = ({ rows, skillLevelOptions, disableSelect }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -78,6 +78,7 @@ const MatrixTable = ({ rows, skillLevelOptions }) => {
                     key={row.id}
                     row={row}
                     skillLevelOptions={skillLevelOptions}
+                    disableSelect={disableSelect}
                   />
                 ))}
             </TableBody>
@@ -100,6 +101,10 @@ const MatrixTable = ({ rows, skillLevelOptions }) => {
       {createTable()}
     </div>
   );
+};
+
+MatrixTable.defaultProps = {
+  disableSelect: false,
 };
 
 export default MatrixTable;

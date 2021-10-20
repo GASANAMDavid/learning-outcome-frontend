@@ -5,7 +5,7 @@ const initialState = {
     first_name: '',
     last_name: '',
     email: '',
-    role: { id: 1, name: '' },
+    role: { id: '', name: '' },
   }],
 };
 

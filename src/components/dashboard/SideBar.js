@@ -51,7 +51,7 @@ const SideBar = () => {
             onClick={() => history.push('/dashboard/users')}
             className={location.pathname === '/dashboard/users' ? classes.active : null}
           >
-            <ListItemText primary="Users" />
+            <ListItemText primary="User Management" />
           </ListItem>
         )}
       </List>

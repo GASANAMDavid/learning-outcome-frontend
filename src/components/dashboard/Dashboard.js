@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Drawer, Container, Divider,
-  Avatar,
   Typography,
   Button,
 } from '@mui/material';
@@ -42,11 +41,6 @@ const Dashboard = ({ children }) => {
           classes={{ paper: classes.drawerPaper }}
         >
           <Button className={classes.logo}>
-            <Avatar
-              className={classes.avatar}
-              alt="logo"
-              src="https://images.squarespace-cdn.com/content/v1/5dfc0291e4c3b00157471aa8/1577157534461-VNAILQPNC56U9M51N5KP/horizontal_gradient%404x.png?format=1500w"
-            />
             <Typography>
               One World Coders
             </Typography>

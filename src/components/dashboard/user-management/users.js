@@ -10,6 +10,7 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { useSelector, useDispatch } from 'react-redux';
+import { makeStyles } from '@mui/styles';
 import getUsers from '../../../redux/actions/getUsers';
 import deleteUser from '../../../redux/actions/deleteUser';
 import UserRow from './userRow';
@@ -21,6 +22,20 @@ const columns = [
   { id: 'role', label: 'Role', minWidth: 170 },
   { id: 'action', label: 'Action', minWidth: 170 },
 ];
+
+const useStyles = makeStyles({
+  heading: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    marginBottom: '20px',
+    height: '70px',
+  },
+  newUserBtn: {
+    height: '60%',
+    marginRight: '15px',
+  },
+});
 
 const Users = () => {
   const dispatch = useDispatch();
@@ -46,9 +61,12 @@ const Users = () => {
     dispatch(deleteUser(userId));
   };
 
+  const classes = useStyles();
   return (
     <>
-      <Button variant="contained" color="secondary" onClick={() => history.push('/dashboard/create')}>new user</Button>
+      <Paper className={classes.heading}>
+        <Button className={classes.newUserBtn} variant="contained" color="primary" onClick={() => history.push('/dashboard/create')}>new user</Button>
+      </Paper>
       <Paper sx={{ width: '100%', overflow: 'hidden' }}>
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table">

@@ -6,6 +6,7 @@ import { makeStyles } from '@mui/styles';
 import profilePhoto from '../assets/grad_cap.jpeg';
 import { logout } from '../../redux/actions/login';
 import getCurrentUser from '../../redux/actions/getCurrentUser';
+import getRoles from '../../redux/actions/getRoles';
 import Dropdown from './Dropdown';
 
 import Auth from '../../helpers/auth';
@@ -35,6 +36,7 @@ const Header = () => {
 
   useEffect(() => {
     dispatch(getCurrentUser());
+    dispatch(getRoles());
   }, [dispatch]);
 
   const handleClick = (event) => {

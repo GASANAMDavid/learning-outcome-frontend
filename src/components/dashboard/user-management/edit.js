@@ -1,19 +1,22 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router';
 import saveProfileUpdates, { updateUserProfile } from '../../../redux/actions/updateUserProfile';
 import UserInfo from './userInfo';
 
-const Account = () => {
+const Edit = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const { user } = location.state;
 
-  const profile = useSelector((state) => state.currentUserProfileReducer.profile);
-
+  const [profile, setProfile] = React.useState(user);
   const handleRoleSelected = (role) => {
     const field = 'role_id';
     const updates = {
       [field]: role.id,
     };
     dispatch(updateUserProfile(updates));
+    setProfile({ ...profile, role });
   };
 
   const handleChange = (field) => (event) => {
@@ -21,10 +24,11 @@ const Account = () => {
       [field]: event.target.value,
     };
     dispatch(updateUserProfile(updates));
+    setProfile({ ...profile, ...updates });
   };
 
   const handleSaveChanges = () => {
-    const userId = profile.id;
+    const userId = user.id;
     dispatch(saveProfileUpdates(userId));
   };
 
@@ -34,12 +38,10 @@ const Account = () => {
       onChange={handleChange}
       onSelectedRoleChange={handleRoleSelected}
       onSave={handleSaveChanges}
-      title="My Account"
+      title="Edit User"
       action="Save Changes"
-      disableRoleField={!profile.role.admin}
-      userAccount
     />
   );
 };
 
-export default Account;
+export default Edit;

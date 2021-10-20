@@ -5,6 +5,11 @@ import createUser, { addUserInfo } from '../../redux/actions/createUser';
 import axiosInstance from '../../helpers/api';
 
 jest.mock('../../helpers/auth');
+const mockHistory = { push: jest.fn() };
+jest.mock('react-router', () => ({
+  ...jest.requireActual('react-router'),
+  useHistory: () => mockHistory,
+}));
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -20,29 +25,29 @@ describe(createUser, () => {
     const store = mockStore({});
     const expectedAction = [{
       type: 'ADD_USER_INFO',
-      payload: { firstName: 'John' },
+      payload: { first_name: 'John' },
     }];
 
-    store.dispatch(addUserInfo({ firstName: 'John' }));
+    store.dispatch(addUserInfo({ first_name: 'John' }));
     expect(store.getActions()).toEqual(expectedAction);
   });
 
   it('has an action to create a user in the database', () => {
     const store = mockStore({
       createUserReducer: {
-        user: { name: 'John', email: '' },
+        user: { first_name: '', email: '', role: { id: 1 } },
       },
     });
 
     moxios.wait(() => {
       const request = moxios.requests.mostRecent();
       request.respondWith({
-        status: 204,
+        status: 200,
         response: { message: 'Created Successfully' },
       });
     });
 
-    return store.dispatch(createUser())
+    return store.dispatch(createUser(mockHistory))
       .then(() => {
         const expectedActions = [
           {

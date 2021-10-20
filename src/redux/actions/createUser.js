@@ -1,7 +1,6 @@
 import axiosInstance from '../../helpers/api';
 import setSnackbar from './snackbar';
 import store from '../store/store';
-import Auth from '../../helpers/auth';
 
 const createUserStart = () => (
   {
@@ -13,26 +12,25 @@ const removeUserInfo = () => ({
   type: 'REMOVE_USER_INFO',
 });
 
-export const addUserInfo = (payload) => (
-  {
-    type: 'ADD_USER_INFO',
-    payload,
-  }
-);
+export const addUserInfo = (payload) => ({
+  type: 'ADD_USER_INFO',
+  payload,
+});
 
-const createUser = () => (dispatch) => {
+const createUser = (history) => (dispatch) => {
   const { createUserReducer: { user: existingUser } } = store.getState();
   const body = {
     first_name: existingUser.first_name,
     last_name: existingUser.last_name,
     email: existingUser.email,
+    role_id: existingUser.role.id,
   };
   dispatch(createUserStart());
   return axiosInstance.post('/user', body)
     .then(({ data }) => {
       dispatch(removeUserInfo());
       dispatch(setSnackbar(data.message));
-      new Auth().signIn({ email: existingUser.email, password: existingUser.password });
+      history.push('/dashboard/users');
     })
     .catch(({ error }) => {
       console.log(error);
