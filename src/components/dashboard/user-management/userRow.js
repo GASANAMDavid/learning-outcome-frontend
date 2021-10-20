@@ -1,9 +1,30 @@
 import React from 'react';
-import { TableRow, TableCell, Button } from '@mui/material';
+import {
+  TableRow, TableCell, Button, Chip,
+} from '@mui/material';
 import { useHistory } from 'react-router';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles({
+  action: {
+    display: 'flex',
+    justifyContent: 'space-evenly',
+  },
+});
 
 const userRow = ({ row, handleDelete }) => {
   const history = useHistory();
+
+  const handleEdit = () => {
+    history.push({
+      pathname: '/dashboard/edit/',
+      state: {
+        user: row,
+      },
+    });
+  };
+
+  const classes = useStyles();
   return (
     <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
       <TableCell>
@@ -16,10 +37,10 @@ const userRow = ({ row, handleDelete }) => {
         {row.email}
       </TableCell>
       <TableCell>
-        {row.role.id}
+        <Chip color={row.role.admin ? 'success' : 'secondary'} variant="outlined" label={row.role.name} />
       </TableCell>
-      <TableCell>
-        <Button variant="outlined" color="primary" onClick={() => history.push('/dashboard/edit')}>edit</Button>
+      <TableCell className={classes.action}>
+        <Button variant="outlined" color="primary" onClick={handleEdit}>edit</Button>
         <Button variant="outlined" color="error" onClick={handleDelete} className={`deleteBtn-${row.id}`}>delete</Button>
       </TableCell>
     </TableRow>

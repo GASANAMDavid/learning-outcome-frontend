@@ -7,7 +7,7 @@ import {
 import { useDispatch } from 'react-redux';
 import { updateLocalMatrix } from '../../redux/actions/updateCurrentMatrix';
 
-const SkillRow = ({ row, skillLevelOptions }) => {
+const SkillRow = ({ row, skillLevelOptions, disableSelect }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const dispatch = useDispatch();
 
@@ -46,6 +46,7 @@ const SkillRow = ({ row, skillLevelOptions }) => {
           aria-controls="skills-options-menu"
           aria-haspopup="true"
           endIcon={<ExpandMoreIcon />}
+          disabled={disableSelect}
           onClick={handleClick}
         >
           {getSkillLevelDIsplayMessage()}
