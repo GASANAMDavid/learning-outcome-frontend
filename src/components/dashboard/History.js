@@ -9,14 +9,14 @@ import SkeletonTable from './SkeletonTable';
 const History = () => {
   const dispatch = useDispatch();
   const historyStore = useSelector((state) => state.getMatricesHistoryReducer);
-  const store = useSelector((state) => state.setVersionIdToBeDisplayedReducer);
+  const store = useSelector((state) => state.versionToBeDisplayedReducer);
 
   useEffect(() => {
     dispatch(getMatricesHistory());
   }, [dispatch]);
 
   const getVersionRowsData = (matrices) => {
-    const matrixVersionToBeDisplayed = matrices.find((matrix) => matrix.id === store.versionId);
+    const matrixVersionToBeDisplayed = matrices.find((matrix) => matrix.id === store.id);
     return matrixVersionToBeDisplayed.data;
   };
 
@@ -44,6 +44,7 @@ const History = () => {
           <MatrixTable
             rows={getVersionRowsData(historyStore.matrices)}
             skillLevelOptions={historyStore.skill_level_options}
+            disableSelect
           />
         )}
       </div>
