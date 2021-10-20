@@ -2,13 +2,14 @@ import { combineReducers } from 'redux';
 import getCurrentMatrixReducer from './getCurrentMatrix';
 import updateMatrixReducer from './updateMatrix';
 import getMatricesHistoryReducer from './getMatricesHistory';
-import setVersionIdToBeDisplayedReducer from './setVersionIDToBeDisplayed';
+import setVersionIdToBeDisplayedReducer from './versionToBeDisplayed';
 import snackbarReducer from './snackbar';
 import createUserReducer from './createUser';
 import isLoggedInReducer from './isLoggedIn';
 import currentUserProfileReducer from './currentUserProfile';
 import updateUserProfileReducer from './updateUserProfile';
 import usersListReducer from './usersList';
+import rolesReducer from './roles';
 
 export default combineReducers({
   getCurrentMatrixReducer,
@@ -21,4 +22,5 @@ export default combineReducers({
   currentUserProfileReducer,
   updateUserProfileReducer,
   usersListReducer,
+  rolesReducer,
 });
