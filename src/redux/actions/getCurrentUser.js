@@ -11,7 +11,7 @@ const getCurrentUserSuccess = (payload) => ({
 
 const getCurrentUser = () => (dispatch) => {
   dispatch(getCurrentStart());
-  return axiosInstance.get('/user')
+  return axiosInstance.get('/user/show')
     .then(({ data }) => {
       dispatch(getCurrentUserSuccess(data));
     })

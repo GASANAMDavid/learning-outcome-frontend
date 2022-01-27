@@ -12,7 +12,7 @@ const getUsersSuccess = (payload) => ({
 const getUsers = () => (dispatch) => {
   dispatch(getUsersStart());
 
-  return axiosInstance.get('/user/list_users')
+  return axiosInstance.get('/user')
     .then(({ data }) => dispatch(getUsersSuccess(data)))
     .catch((error) => console.log(error));
 };

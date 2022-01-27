@@ -10,7 +10,7 @@ export const updateUserProfile = (payload) => ({
 const saveProfileUpdates = (userId) => (dispatch) => {
   const { updateUserProfileReducer: { profileUpdates: existingProfileUpdates } } = store.getState();
   const body = { id: userId, user: existingProfileUpdates };
-  return axiosInstance.patch('user', body)
+  return axiosInstance.patch('/user', body)
     .then(() => dispatch(setSnackbar({
       snackbarOpen: true,
       snackbarType: 'success',
